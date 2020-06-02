@@ -1,0 +1,80 @@
+/*------------------------------------*\
+    #Blockquotes
+\*------------------------------------*/
+
+.blockquote,
+blockquot {
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    color: @color-secondary;
+    font-style: italic;
+    line-height: 26px;
+    font-weight: 500;
+    padding: 25px 0 25px 25px;
+    position: relative;
+}
+
+.quote-author {
+    font-family: @font-body;
+    display: block;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1;
+    color: @color-dark2;
+    margin-top: 18px;
+}
+
+.blockquote-1 {
+    border-left: 3px solid #bb8c4b;
+    font-style: normal;
+    padding: 5px 25px;
+}
+
+.blockquote-3,
+.blockquote-4 {
+    padding-right: 30px;
+}
+
+.blockquote-2,
+.blockquote-3,
+.blockquote-4 {
+    border-left: none;
+}
+
+.blockquote-2:after,
+.blockquote-2:before {
+    font-family: @awesome;
+    font-size: 16px;
+    position: absolute;
+    color: @color-heading;
+    line-height: @line-height-content;
+}
+
+.blockquote-2:before {
+    content: "\f10d";
+    top: 0;
+    left: 0;
+}
+
+.blockquote-2:after {
+    content: "\f10e";
+    right: 0;
+    bottom: 0;
+}
+
+.blockquote-3 {
+    color: @color-theme;
+    background-color: #f4f4f4;
+    .rounded(0);
+}
+
+.blockquote-4 {
+    color: @color-white;
+    background-color: @color-dark;
+    .rounded(5px);
+}
+
+.blockquote-4 .quote-author {
+    color: @color-white;
+}

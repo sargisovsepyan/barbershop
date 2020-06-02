@@ -1,0 +1,541 @@
+/*------------------------------------*\
+	#Widgets
+\*------------------------------------*/
+
+.sidebar {
+    border-radius: 6px;
+    background-color: #f8f8f8;
+    padding: 40px;
+}
+
+.widget {
+    margin-bottom: 50px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.widget:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+/* Widget */
+
+.widget .widget--title {
+    position: relative;
+}
+
+.widget .widget--title h5 {
+    color: @color-secondary;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    text-transform: capitalize;
+    margin-bottom: 40px;
+}
+
+/* Category Widget */
+
+.widget-categories {
+    padding-bottom: 30px;
+}
+
+.widget-categories ul {
+    margin-top: -10px;
+    margin-bottom: 0
+}
+
+.widget-categories ul li a {
+    color: #bdbdbd;
+    font-size: 14px;
+    font-weight: 400;
+    position: relative;
+    padding-left: 15px;
+    line-height: 40px;
+}
+
+.widget-categories ul li a:hover {
+    color: @color-theme;
+}
+
+.widget-categories ul li a:after {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: auto;
+    content: "\f105";
+    color: #bdbdbd;
+    font-family: fontawesome;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.widget-categories ul li a:hover i {
+    color: @color-theme;
+}
+
+/* Tags Widget */
+
+.widget-tags {
+    padding-bottom: 32px;
+}
+
+.widget-tags ul {
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.widget-tags ul li {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.widget-tags a {
+    display: inline-block;
+    border: 1px solid #e0e0e0;
+    border-radius: 40px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    color: #363636;
+    margin-right: 6px;
+    margin-bottom: 8px;
+    text-transform: capitalize;
+    padding: 10px 13px;
+}
+
+.widget-tags a:hover {
+    color: @color-theme;
+    border-color: @color-theme;
+}
+
+/* Recent Widegt */
+
+.widget-recent-posts .entry {
+    position: relative;
+    margin-bottom: 30px;
+    min-height: 50px;
+}
+
+.widget-recent-posts .entry:last-of-type {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.widget-recent-posts img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 70px;
+    height: 70px;
+    text-align: center;
+}
+
+.widget-recent-posts .entry .entry-desc {
+    position: relative;
+    margin-left: 90px;
+}
+
+.widget-recent-posts .entry .entry-title {
+    margin-bottom: 5px;
+}
+
+.widget-recent-posts .entry .entry-title a {
+    font-family: 'Open Sans', sans-serif;
+    color: @color-secondary;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    text-transform: capitalize;
+}
+
+.widget-recent-posts .entry .entry-title a:hover {
+    color: @color-theme
+}
+
+.widget-recent-posts .entry .entry-desc .entry-meta,
+.widget-recent-posts .entry .entry-desc .entry-meta a {
+    font-family: @font-heading;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #999999;
+    position: relative
+}
+
+.widget-recent-posts .entry .entry-desc .entry-meta span:first-of-type {
+    margin-right: 10px;
+}
+
+.widget-recent-posts .entry .entry-desc .entry-meta span:first-of-type:before {
+    content: "/";
+    position: absolute;
+    right: auto;
+    top: 0;
+    left: 58px
+}
+
+/* Search Widget */
+
+.widget-search {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.widget-search .form-search {
+    border: none;
+    border-radius: 22px;
+    background-color: #f5f5f5;
+}
+
+.widget-search .input-group {
+    border-radius: 45px;
+    border: none;
+    background-color: #fff;
+    overflow: hidden;
+    padding: 0 12px 0 0;
+}
+
+.widget-search .form-search .form-control {
+    border: none;
+    -moz-border-radius: 45px;
+    -webkit-border-radius: 45px;
+    border-radius: 45px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #bdbdbd;
+    font-size: 13px;
+    font-weight: 400;
+    width: 255px;
+    height: 45px;
+    line-height: 45px;
+    text-transform: capitalize;
+    background-color: #fff;
+}
+
+/* Placeholder */
+
+.widget-search .form-search .form-control::-webkit-input-placeholder {
+    color: #bdbdbd;
+}
+
+.widget-search .form-search .form-control:-moz-placeholder {
+    color: #bdbdbd;
+}
+
+.widget-search .form-search .form-control::-moz-placeholder {
+    color: #bdbdbd;
+}
+
+.widget-search .form-search .form-control::-ms-input-placeholder {
+    color: #bdbdbd;
+}
+
+.widget-search .form-search .btn {
+    background-color: #fff;
+    color: #bdbdbd;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    width: 35px;
+    height: 45px;
+    line-height: 29px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 0;
+    padding: 0;
+}
+
+/*sidebar shop Search Widget */
+
+.shop .widget-search .input-group,
+.shop .widget-search .form-search .form-control,
+.shop .widget-search .form-search .btn {
+    background-color: #f8f8f8;
+}
+
+.shop .widget-search .form-search .form-control {
+    width: 225px;
+}
+
+.shop .widget-search .input-group {
+    padding: 0 5px 0 0;
+}
+
+.shop .input-group-btn {
+    width: 25px;
+}
+
+/* Widget Instagram */
+
+.widget-instagram a {
+    width: 65px;
+    height: 65px;
+    float: left;
+    display: inline-block;
+    margin: 2px;
+    position: relative;
+}
+
+.widget-instagram a img {
+    max-width: 100%;
+    height: auto;
+}
+
+.widget-instagram .insta-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: all 0.35s;
+    -moz-transition: all 0.35s;
+    -o-transition: all 0.35s;
+    transition: all 0.35s;
+    transition: all 0.35s;
+}
+
+.widget-instagram .insta-hover i {
+    display: block;
+    border-radius: 1px;
+    background-color: @color-theme;
+    color: @color-white;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 65px;
+    text-align: center;
+}
+
+.widget-instagram a:hover .insta-hover {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+}
+
+/* fiter product */
+
+.ui-slider {
+    position: relative;
+    text-align: left;
+}
+
+.ui-slider .ui-slider-handle {
+    position: absolute;
+    z-index: 2;
+    width: 1.2em;
+    height: 1.2em;
+    cursor: default;
+    -ms-touch-action: none;
+    touch-action: none;
+}
+
+.ui-slider .ui-slider-range {
+    position: absolute;
+    z-index: 1;
+    font-size: 0.7em;
+    display: block;
+    border: 0;
+    background-position: 0 0;
+}
+
+/* support: IE8 - See #6727 */
+
+.ui-slider.ui-state-disabled .ui-slider-handle,
+.ui-slider.ui-state-disabled .ui-slider-range {
+    filter: inherit;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+    top: -.2em;
+    margin-left: -.6em;
+}
+
+.ui-slider-horizontal .ui-slider-range {
+    top: 0;
+    height: 100%;
+}
+
+.ui-slider-horizontal .ui-slider-range-min {
+    left: 0;
+}
+
+.ui-slider-horizontal .ui-slider-range-max {
+    right: 0;
+}
+
+.ui-slider-vertical {
+    width: 0.8em;
+    height: 100px;
+}
+
+.ui-slider-vertical .ui-slider-handle {
+    left: -.3em;
+    margin-left: 0;
+    margin-bottom: -.6em;
+}
+
+.ui-slider-vertical .ui-slider-range {
+    left: 0;
+    width: 100%;
+}
+
+.ui-slider-vertical .ui-slider-range-min {
+    bottom: 0;
+}
+
+.ui-slider-vertical .ui-slider-range-max {
+    top: 0;
+}
+
+.widget-filter .ui-slider {
+    height: 4px;
+    background-color: rgba(34, 34, 34, 0.06);
+    border-radius: 0;
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
+
+.widget-filter .ui-slider-handle {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%!important;
+    margin-left: 0;
+    background-color: #222222;
+}
+
+.widget-filter .ui-slider-range {
+    height: 4px;
+    background-color: @color-secondary;
+    margin-bottom: 20px;
+}
+
+.widget-filter p {
+    font-family: @font-secondary;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 19px;
+}
+
+.widget-filter label {
+    color: @color-body;
+}
+
+.widget-filter input {
+    color: @color-secondary;
+    border: none;
+    background-color: transparent;
+}
+
+.widget-filter .btn {
+    width: 70px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 13px;
+    border: 1px solid #333333;
+    float: right;
+    font-size: 10px;
+}
+
+/* ADS widget */
+
+.ads-widget img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Recent Product Widegt */
+
+.widget-recent-products .product {
+    position: relative;
+    margin-bottom: 24px;
+    min-height: 70px;
+}
+
+.widget-recent-products .product:last-of-type {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.widget-recent-products .product img {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.widget-recent-products .product .product-desc {
+    position: relative;
+    margin-left: 90px;
+    padding-bottom: 20px;
+}
+
+.widget-recent-products .product:last-of-type .product-desc {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.widget-recent-products .product .product-title {
+    margin-bottom: 5px;
+    padding-top: 16px;
+}
+
+.widget-recent-products .product .product-title a {
+    color: @color-secondary;
+    font-family: @font-heading;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    text-transform: capitalize;
+    letter-spacing: 0.28px;
+}
+
+.widget-recent-products .product .product-title a:hover {
+    color: @color-theme
+}
+
+.widget-recent-products .product .product-desc .product-meta {
+    color: #aaaaaa;
+    font-family: @font-body;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+/* Custom, iPhone Retina */
+
+@media only screen and (min-width: 320px) and (max-width :767px) {
+    .sidebar {
+        margin-bottom: 15px;
+        padding: 15px;
+    }
+
+    .widget {
+        margin-bottom: 30px;
+    }
+    .widget-search .form-search .form-control {
+        width: 155px;
+    }
+}
+
+/* Small Devices, Tablets */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .widget-recent .entry .entry-desc {
+        margin-left: 70px;
+    }
+
+    .sidebar {
+        margin-bottom: 20px;
+        padding: 20px;
+    }
+}

@@ -1,0 +1,96 @@
+/*------------------------------------*\
+    #BACKGROUNDS
+\*------------------------------------*/
+.bg-theme {
+	background-color: @color-theme !important
+}
+
+.bg-gray {
+	background-color: @color-gray !important;
+}
+
+.bg-white {
+	background-color: @color-white !important
+}
+
+.bg-dark {
+	background-color: #232323 !important
+}
+
+.bg-secondary {
+  background-color: @color-secondary;
+}
+/* Background Image */
+
+.bg-section {
+	position: relative;
+	overflow: hidden;
+	z-index: 1;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-ms-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	/*background-attachment: fixed;*/
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 100%;
+	height: 100%;
+}
+.bg-parallax {
+	background-attachment: fixed;
+}
+.bg-overlay:before {
+	content: "";
+	display: inline-block;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+.bg-overlay-light:before {
+	background-color: @color-white;
+	opacity: 0.8;
+}
+
+.bg-overlay-dark:before {
+	background-color: #222222;
+opacity: 0.65;
+}
+
+.bg-overlay-theme:before {
+	background-color:rgba(12,180,206,0.65);
+}
+
+/* Background Video */
+.bg-video {
+	position: relative;
+}
+
+.bg-video .bg-player {
+	bottom: 0;
+	left: 0;
+	right: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	background: url(polina.jpg) no-repeat;
+	min-height: 500px;
+}
+
+.bg-video .vidbg {
+	min-width: 100%;
+	min-height: 100%;
+}
+
+.bg-vyoutube {
+    z-index:550;
+    text-align:center;
+    height:100%;
+    min-height:100%;
+    position:relative;
+    overflow:hidden
+}

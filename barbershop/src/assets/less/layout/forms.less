@@ -1,0 +1,208 @@
+/*------------------------------------*\
+    #FORMS
+\*------------------------------------*/
+
+.form-control {
+    color: #aaaaaa;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 40px;
+    height: 40px;
+    border: 1px solid #e0e0e0;
+    background: transparent;
+    padding-left: 24px;
+    margin-bottom: 30px;
+    position: relative;
+    border-radius: 23px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.form-control:focus {
+    border-color: #888888;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/* Placeholder */
+
+.form-control::-webkit-input-placeholder {
+    color: #aaaaaa;
+    text-transform: capitalize;
+}
+
+.form-control:-moz-placeholder {
+    color: #aaaaaa;
+    text-transform: capitalize;
+}
+
+.form-control::-moz-placeholder {
+    color: #aaaaaa;
+    text-transform: capitalize;
+}
+
+.form-control:-ms-input-placeholder {
+    color: #aaaaaa;
+    text-transform: capitalize;
+}
+
+.form-select {
+    position: relative
+}
+
+.form-select select {
+    line-height: 1;
+    color: @color-body;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.form-select i {
+    position: absolute;
+    right: 24px;
+    color: #aaaaaa;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 40px;
+
+}
+
+/* Input Checkbox */
+
+.input-checkbox {
+    margin-bottom: 0;
+}
+
+.label-checkbox {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 18px;
+    z-index: 2
+}
+
+.label-checkbox input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.check-indicator {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 14px;
+    width: 14px;
+    background: transparent;
+    border: 2px solid #e0e0e0;
+    border-radius: 2px;
+}
+
+.label-checkbox input:checked ~ .check-indicator {
+    background: @color-theme;
+    border-color: @color-theme;
+}
+
+.check-indicator:after {
+    content: '';
+    position: absolute;
+    display: none;
+}
+
+.label-checkbox .check-indicator:after {
+    left: 3px;
+    top: 1px;
+    width: 4px;
+    height: 7px;
+    border: solid @color-white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.label-checkbox input:checked ~ .check-indicator:after {
+    display: block;
+}
+
+.input-checkbox span {
+    display: inline-block;
+    position: relative;
+    font-size: 13px;
+    padding-left: 22px;
+    line-height: 15px;
+    color: #aaaaaa;
+}
+
+/* Input Radio */
+
+.input-radio {}
+
+.label-radio {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.label-radio input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.radio-indicator {
+    position: absolute;
+    top: -18px;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background: transparent;
+    border: 1px solid #bdbdbd;
+    border-radius: 50%;
+}
+
+.label-radio input:checked ~ .radio-indicator {
+    background: @color-white;
+}
+
+.label-radio:hover input:not([disabled]):checked ~ .radio-indicator,
+.label-radio input:checked:focus ~ .radio-indicator {
+    background: @color-white;
+}
+
+.radio-indicator:after {
+    content: '';
+    position: absolute;
+    display: none;
+    left: 4px;
+    top: 4px;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    background: #333333;
+}
+
+.label-radio input:checked ~ .radio-indicator:after {
+    display: block;
+}
+
+.input-radio .input-option {
+    color: #999999;
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 33px;
+    display: inline-block;
+}
+
+/**/
+
+.booking-2 .booking-form {
+    background-color: @color-white;
+    padding: 50px 70px;
+}

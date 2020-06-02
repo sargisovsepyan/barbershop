@@ -1,0 +1,248 @@
+/*------------------------------------*\
+    #Landing Page / Promo Page
+\*------------------------------------*/
+
+.landing-hero {
+    height: 100vh;
+    padding-top: 200px;
+}
+
+.landing-hero h6 {
+    color: #f9f9f9;
+    font-family: @font-body;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.landing-hero h1 {
+    font-size: 65px;
+    font-weight: 700;
+    line-height: 70px;
+    margin-bottom: 25px;
+}
+
+.landing-hero p {
+    color: #f9f9f9;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 27px;
+    padding: 0 20px;
+}
+
+.landing-demos .gallery-filter li a {
+    font-weight: 700;
+    margin-right: 20px;
+}
+
+.landing-demos .gallery-item {
+    margin-bottom: 50px;
+}
+
+.landing-demos .gallery-title h4 {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: capitalize;
+    margin-bottom: 0;
+}
+
+.landing-demos .gallery-title:hover h4 {
+    color: @color-theme;
+}
+
+.landing-demos .gallery-img {
+    -moz-box-shadow: 0 0 36px 4px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0 36px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 36px 4px rgba(0, 0, 0, 0.1);
+    background-color: #c0c0c0;
+    -webkit-transition: all 0.35s;
+    -moz-transition: all 0.35s;
+    -o-transition: all 0.35s;
+    transition: all 0.35s;
+}
+
+.landing-demos .gallery-img img {
+    max-width: 100%;
+    height: auto;
+}
+
+.landing-demos .gallery-item:hover .gallery-img {
+    -webkit-transform: translateY(-6px);
+    -moz-transform: translateY(-6px);
+    -o-transform: translateY(-6px);
+    transform: translateY(-6px);
+}
+
+.landing-demos .gallery-item:hover img {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+}
+
+.landing-demos .gallery-bio {
+    padding-top: 23px;
+}
+
+/* Landing Action*/
+
+.wrapper-parallax {
+    margin-bottom: 600px;
+    position: relative;
+    z-index: 50;
+}
+
+.footer-parallax {
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+    bottom: 0;
+    left: 0;
+    height: 600px;
+}
+
+.landing-action {
+    padding-top: 125px;
+}
+
+
+.landing-action h2 {
+    font-size: 45px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 50px;
+}
+
+.landing-featues {
+    padding-bottom: 50px;
+}
+
+.landing-featues .feature-box {
+    margin-bottom: 50px;
+}
+
+@keyframes animatedBackground {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 100% 0;
+    }
+}
+
+.bg-animate {
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    animation: animatedBackground 30s linear infinite;
+}
+
+.landing-carousel {
+    height: 780px;
+}
+
+.landing-carousel .owl-item .carousel-item {
+    -webkit-transform: scale(.7);
+    -moz-transform: scale(.7);
+    transform: scale(.7);
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 36px 4px rgba(0, 0, 0, 0.1);
+}
+
+.landing-carousel .owl-item.center .carousel-item {
+    -webkit-transform: scale(.9);
+    -moz-transform: scale(.9);
+    transform: scale(.9);
+    margin-left: -25px;
+}
+
+.landing-carousel .carousel-navs .owl-controls {
+    margin: 0;
+}
+
+.landing-carousel .carousel-navs .owl-controls .owl-nav [class*=owl-] {
+    height: 35px;
+    line-height: 35px;
+    color: #999999;
+
+}
+
+.landing-carousel .carousel-navs .owl-controls .owl-nav .owl-prev:before,
+.landing-carousel .carousel-navs .owl-controls .owl-nav .owl-next:before {
+    font-size: 35px;
+    font-family: @awesome;
+    color: @color-secondary;
+}
+
+.landing-carousel .carousel-navs .owl-controls .owl-nav .owl-prev:before {
+    content: "\f104";
+}
+
+
+.landing-carousel .carousel-navs .owl-controls .owl-nav .owl-next:before {
+
+    content: "\f105";
+}
+
+.landing-carousel .carousel-navs .owl-controls .owl-nav .owl-prev {
+    left: 315px;
+}
+
+.landing-carousel .carousel-navs .owl-controls .owl-nav .owl-next {
+    right: 250px;
+}
+
+/* Landing Features */
+
+.landing-feature .feature-panel {
+    margin-bottom: 50px;
+}
+
+.landing-feature .feature-panel .feature--content h3 {
+    font-size: 18px;
+}
+
+.landing-niche .btn {
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+.btn--restaurant {
+    background-color: #bb9356;
+}
+
+.btn--marketing {
+    background-color: #1dc49a;
+}
+
+.btn--construction {
+    background-color: #ffc527;
+}
+
+.btn--lawyer {
+    background-color: #d5aa6d;
+}
+
+.btn--health {
+    background-color: #3498db;
+}
+
+.btn--pet {
+    background-color: #52be7f;
+}
+
+.btn--finance {
+    background-color: #536ed3;
+}
+
+.landing-carousel2 .owl-carousel .owl-item img {
+    width: 100%;
+}
+
+.landing-carousel2 .owl-item .carousel-item {
+
+    box-shadow: 0 0 36px 4px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,8 @@
+    <script src="../assets/js/authorization/animsition.js"></script>
+    <script src="../assets/js/authorization/popper.js"></script>
+    <script src="../assets/js/authorization/bootstrap.js"></script>
+    <script src="../assets/js/authorization/select2.js"></script>
+    <script src="../assets/js/authorization/moment.js"></script>
+    <script src="../assets/js/authorization/daterangepicker.js"></script>
+    <script src="../assets/js/authorization/countdowntime.js"></script>
+    <script src="../assets/js/authorization/main.js"></script>

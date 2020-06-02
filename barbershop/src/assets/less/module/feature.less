@@ -1,0 +1,334 @@
+/*------------------------------------*\
+    #Features
+\*------------------------------------*/
+
+.feature-panel {
+    position: relative;
+}
+
+.feature-panel .feature--icon {
+    color: @color-theme;
+    font-size: 40px;
+    line-height: 1;
+    margin-bottom: 30px;
+}
+
+.feature-panel .feature--icon i {
+    -webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    transition: all .3s linear;
+    display: inline-block;
+}
+
+.feature-panel:hover .feature--icon.feature--icon-animation i {
+    -webkit-animation: pulse 0.9s infinite;
+    -moz-animation: pulse 0.9s infinite;
+    -ms-animation: pulse 0.9s infinite;
+    -o-animation: pulse 0.9s infinite;
+    animation: pulse 0.9s infinite;
+}
+
+.feature-panel .feature--content h3 {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+.feature-panel .feature--content p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 23px;
+    margin-bottom: 0;
+    padding: 0 5px;
+}
+
+.feature-left .feature-panel .feature--icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-bottom: 0;
+}
+
+.feature-left .feature-panel .feature--content {
+    padding-left: 68px;
+}
+
+.feature-left.feature-1 .feature-panel {
+    margin-bottom: 64px;
+}
+
+.feature-left.feature-1 .feature-panel .feature--icon i {
+    width: 70px;
+    height: 70px;
+    line-height: 64px;
+}
+
+.feature-left.feature-1 .feature-panel .feature--content {
+    padding-left: 100px;
+}
+
+.feature-left.feature-1 .feature-panel .feature--content p {
+    padding: 0
+}
+
+.feature-left.feature-1 .feature-panel .feature--content a {
+    color: @color-secondary;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 20px;
+    text-transform: uppercase;
+    margin-top: 19px;
+    display: block;
+}
+
+.feature-left.feature-1 .feature-panel:hover .feature--content a {
+    color: @color-theme
+}
+
+/* Feature Heading */
+
+.feature-heading .feature-panel h6 {
+    color: @color-body;
+    font-family: @font-body;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 13px;
+}
+
+.feature-heading .feature-panel:hover h6 {
+    color: @color-theme
+}
+
+.feature-heading .feature-panel h3 {
+    color: @color-secondary;
+    font-size: 23px;
+    font-weight: 600;
+    line-height: 29px;
+    position: relative;
+    margin-bottom: 14px;
+}
+
+.feature-heading .feature-panel .feature--icon {
+    top: 8px;
+    color: #616161
+}
+
+.feature-heading .feature-panel:hover .feature--icon {
+    top: 8px;
+    color: @color-theme;
+}
+
+.feature-heading .feature-panel .feature--content p {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.feature-heading .feature-panel .feature-more {
+    color: @color-theme;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 20px;
+    display: block
+}
+
+.feature-heading .feature-panel .feature-more:hover {
+    color: @color-heading;
+}
+
+.feature-dark .feature-panel .feature--icon,
+.feature-dark .feature-panel .feature--content .read-more,
+.feature-dark .feature-panel .feature--content h3 {
+    color: @color-white;
+}
+
+/* feature left circle  */
+
+.feature-left-circle .feature-panel .feature--content {
+    padding-left: 100px;
+}
+
+.feature-left-circle .feature--content h6 {
+    color: @color-theme;
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 10px;
+}
+
+.feature-left-circle .feature--content h3 {
+    font-size: 26px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 29px;
+}
+
+.feature-left-circle .feature--content p {
+    color: #9b9b9b;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 23px;
+    padding: 0;
+}
+
+.feature-left-circle .feature--icon {
+    width: 74px;
+    height: 74px;
+    line-height: 74px;
+    text-align: center;
+    border-radius: 50%;
+    border: 2px solid rgba(155, 155, 155, 0.2);
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    transition: all .2s linear;
+}
+
+.feature-left-circle .feature--icon:hover {
+    background: @color-theme;
+    border-color: @color-theme;
+    color: @color-white;
+}
+
+/* Custom, iPhone Retina */
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .feature-panel {
+        margin-bottom: 20px;
+    }
+    .feature-panel .feature--icon {
+        margin-bottom: 10px;
+    }
+}
+
+/* Small Devices, Tablets */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .feature-panel {
+        margin-bottom: 20px;
+    }
+}
+
+/* Feature #1 */
+
+.feature-1 .feature-panel .feature--icon i {
+    color: @color-white;
+    background-color: @color-theme;
+    box-shadow: 0 0 0 2px @color-theme;
+    border: 5px solid @color-theme;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    line-height: 80px;
+    text-align: center;
+}
+
+.feature-1 .feature-panel:hover .feature--icon i {
+    border-color: @color-white;
+}
+
+/* Feature #2 */
+
+.feature-2 .feature-panel .feature--icon i {
+    background-color: transparent;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    text-align: center;
+    border: 1px solid #dedede
+}
+
+.feature-2 .feature-panel:hover .feature--icon i {
+    background-color: @color-theme;
+    border-color: @color-theme;
+    color: @color-white;
+}
+
+.feature-3 .feature-panel .feature--icon i,
+.feature-5 .feature-panel .feature--icon i {
+    font-size: 60px;
+}
+
+
+.feature-7 .feature-panel .feature--icon i,
+.feature-8 .feature-panel .feature--icon i {
+    color: @color-theme
+}
+
+.feature-8 .feature-panel .feature--content h3 {
+    color: @color-white
+}
+
+/*------------------------------------*\
+    #Info Box
+\*------------------------------------*/
+
+.info-box .feature-panel {
+    position: relative;
+    padding: 50px 20px;
+    background-color: #fff;
+    border-radius: 2px;
+    -webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    transition: all .3s linear;
+}
+
+.info-box .feature-panel .feature--icon {
+    color: #616161;
+    font-size: 40px;
+    line-height: 1;
+    margin-bottom: 23px;
+}
+
+.info-box .feature-panel .feature--icon i {
+    display: inline-block;
+}
+
+.info-box .feature-panel .feature--content h3 {
+    font-family: 'Poppins', sans-serif;
+    color: #222222;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 19px;
+    text-transform: capitalize;
+}
+
+.info-box .feature-panel .feature--content p {
+    color: #9b9b9b;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 23px;
+    margin-bottom: 0;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.info-box .feature-panel .feature--icon:hover i {
+    animation: none;
+}
+
+.info-box .feature-panel:hover {
+    background-color: #0cb4ce;
+    color: #fff;
+}
+
+.info-box .feature-panel:hover .feature--icon,
+.info-box .feature-panel:hover .feature--content h3 {
+    color: #fff
+}
+
+.info-box .feature-panel:hover .feature--content p {
+    color: #f9f9f9
+}
+
+.info-box-3 .feature-panel {
+    background-color: #f9f9f9;
+}

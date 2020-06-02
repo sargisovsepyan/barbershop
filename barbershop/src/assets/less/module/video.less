@@ -1,0 +1,115 @@
+/*------------------------------------*\
+	#Video
+\*------------------------------------*/
+
+.video--content .video--player:hover {
+    background-color: @color-theme;
+}
+
+.video--content .video--button .popup-video {
+    width: 60px;
+    height: 60px;
+    line-height: 57px;
+    color: @color-white;
+    font-family: @font-body;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, .4);
+}
+
+.video--content .video--button .popup-video:hover {
+    color: @color-theme;
+    border-color: @color-theme;
+}
+
+.video--content .video--player-bordered {
+    font-size: 32px;
+    border: 2px solid #eeeeee;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Button #1 */
+
+.video-button-1 {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.video-button-1 .video--content {
+    width: 540px;
+    height: 340px;
+}
+
+.video-button-1 .heading {
+    margin-top: -8px;
+}
+
+.video-button-1 .heading .heading--title {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 48px;
+}
+
+.video-button-1 p {
+    color: #999999;
+    font-family: @font-body;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    margin-bottom: 36px;
+}
+
+.video-overlay {
+    background-color: rgba(51, 51, 51, 0.4);
+    height: 100%;
+}
+
+.video-button-1 .video--button {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+/* Custom, iPhone Retina */
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .video-button-1 .video--content {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .video-button-1 .heading .heading--title {
+        font-size: 32px;
+    }
+}
+
+/* Small Devices, Tablets */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .video-button-1 .video--content {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .video-button-1 .heading .heading--title {
+        font-size: 26px;
+        line-height: 35px;
+    }
+    .video-button-1 p {
+        font-size: 15px;
+        line-height: 22px;
+        margin-bottom: 19px;
+    }
+    .video-button-1 {
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+
+}

@@ -1,0 +1,155 @@
+/*------------------------------------*\
+    #Menu
+\*------------------------------------*/
+
+.header .navbar-collapse {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.header .navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+    min-height: 90px;
+    border: none;
+}
+
+.header-bordered .navbar {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.header-bordered .navbar.navbar--dark {
+    border-bottom: 1px solid rgba(34, 34, 34, 0.1);
+}
+
+.header .navbar .logo {
+    height: 90px;
+    line-height: 90px;
+}
+
+.navbar-nav:not(.nav-pos-right) {
+    margin-right: 200px;
+}
+
+.nav-bordered-right {
+    margin-right: 10px;
+}
+
+.nav-bordered-right + .module:first-of-type:before {
+    position: relative;
+    margin-left: 12px;
+}
+
+
+.navbar-nav > li {
+    margin-right: 39px;
+}
+
+.navbar-nav > li > a {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 400;
+    line-height: 90px;
+    color: @color-white;
+    padding: 0;
+}
+
+.nav .open > a,
+.nav .open > a:focus,
+.nav .open > a:hover {
+    background-color: transparent;
+    border: none;
+}
+
+.navbar-nav > li.active > ul {
+    margin-top: 0;
+}
+
+.navbar-nav > li > a:focus,
+.navbar-nav > li > a:hover {
+    background-color: transparent;
+    color: @color-white
+}
+
+/**/
+
+li.has-dropdown > ul.dropdown-menu > li.dropdown-submenu > a:before,
+ul.dropdown-menu > li.has-dropdown > a:before {
+    font-family: fontawesome;
+    content: "\f105";
+    font-size: 13px;
+    position: absolute;
+    right: 25px;
+}
+
+/* Menu Levels */
+
+.dropdown-menu {
+    background-color: transparent;
+    position: relative;
+    width: 100%;
+    border: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.transparent-header .navbar {
+    background-color: transparent;
+    height: 101px;
+}
+
+.transparent-header .navbar-nav > li.has-dropdown > a {
+    color: @color-white
+}
+
+.transparent-header .navbar-nav li.has-dropdown > a:hover,
+.transparent-header .navbar-nav li.has-dropdown.active > a {
+    color: @color-theme
+}
+
+/* Header Light */
+
+.header-light {
+    background-color: @color-white;
+}
+
+.header-light .navbar .logo-dark {
+    display: inline-block;
+}
+
+.header-light .navbar .logo-light {
+    display: none;
+}
+
+.header-light .navbar .module .module-icon i,
+.header-light .navbar .navbar-nav > li > a {
+    color: #222222;
+}
+
+.header-light .navbar .navbar-nav > li > .menu-item:hover::before,
+.header-light .navbar .navbar-nav > li.active > .menu-item:before {
+    background-color: #222222;
+}
+
+/* Header Fixed */
+
+.header-fixed .affix {
+    background-color: #303030;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .09);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .09);
+    -ms-box-shadow: 0 1px 3px rgba(0, 0, 0, .09);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .09);
+}
+
+.header-fixed:not(.header-light) .navbar .logo-dark {
+    display: none;
+}
+
+.header-fixed .navbar.affix .logo-dark {
+    display: inline-block;
+}
+
+.header-fixed .navbar.affix .logo-light {
+    display: none;
+}
