@@ -1,0 +1,125 @@
+/*------------------------------------*\
+    #Services
+\*------------------------------------*/
+
+.service-panel h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: @color-secondary;
+    line-height: 1;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+}
+
+.service-panel p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-bottom: 0;
+    padding: 0 20px;
+}
+
+.service-panel .service--img {
+    overflow: hidden;
+    margin: 0 auto 40px auto;
+    text-align: center;
+}
+
+.service-panel .service--img img {
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}
+
+.service-panel:hover .service--img img {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+/* Service #1 */
+
+.services-1 .service-panel img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Service #2 */
+
+.services-2 .service-panel .service--img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+}
+
+.services-2 .service-panel .service--img img {
+    width: 300px;
+    height: 300px;
+}
+
+/* Custom, iPhone Retina */
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .service-panel {
+        margin-bottom: 30px;
+    }
+}
+
+/*------------------------------------*\
+    #Work Hours
+\*------------------------------------*/
+
+.time-panel {
+    -webkit-transition: all 0.35s;
+    -moz-transition: all 0.35s;
+    -ms-transition: all 0.35s;
+    -o-transition: all 0.35s;
+    transition: all 0.35s;
+    position: relative;
+    padding: 26px 0;
+    border: 1px solid #fff
+}
+
+.time-panel:hover {
+    -webkit-transform: translateY(-4px);
+    -moz-transform: translateY(-4px);
+    -ms-transform: translateY(-4px);
+    -o-transform: translateY(-4px);
+    transform: translateY(-4px);
+}
+
+.time-panel h3 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 35px;
+    color: #fff;
+    text-transform: capitalize;
+}
+
+.time-panel ul li {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #fff;
+}
+
+/* Custom, iPhone Retina */
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .time-panel {
+        margin-bottom: 20px;
+    }
+}
+
+/* Small Devices, Tablets */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .time-panel {
+        margin-bottom: 20px;
+    }
+}

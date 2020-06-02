@@ -1,0 +1,66 @@
+/*------------------------------------*\
+    #Client
+\*------------------------------------*/
+
+.clients .client {
+    -moz-transition: all 0.35s;
+    -webkit-transition: all 0.35s;
+    -ms-transition: all 0.35s;
+    transition: all 0.35s;
+}
+
+.clients .client img {
+    max-width: 100%;
+    width: auto !important;
+}
+
+/* Client Carousel */
+
+.clients-carousel-1 {
+    padding-top: 75px;
+    padding-bottom: 75px;
+}
+
+.clients-divider .client {
+    position: relative;
+}
+
+.clients-divider .client:after {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    content: "";
+    width: 2px;
+    height: 20px;
+    background-color: #222222;
+    margin-top: -10px;
+    opacity: .2
+}
+
+
+.clients-carousel [class*="col-"] {
+    max-height: 75px;
+}
+
+/* Client #2 */
+
+/* Custom, iPhone Retina */
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .client img {
+        margin-bottom: 20px;
+    }
+    .clients {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+}
+
+/* Small Devices, Tablets */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .clients {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+}

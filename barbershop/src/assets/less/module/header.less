@@ -1,0 +1,42 @@
+/*------------------------------------*\
+    #HEADER
+\*------------------------------------*/
+
+.header-transparent {
+    background-color: transparent;
+}
+
+.header-transparent + .mtop-100,
+.header-transparent + .page-title,
+.header-transparent + .slider {
+    position: relative;
+    margin-top: -140px;
+}
+
+/* Transparent Header */
+
+.transparent-header .module .module-icon > i {
+    color: @color-white
+}
+
+.static-affix {
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+/* Header With Top Bar */
+
+.header-topbar {
+    height: 140px;
+    z-index: 9;
+    position: relative;
+}
+
+.header-topbar .navbar {
+    top: 50px;
+}
+
+.header-topbar .navbar.affix {
+    top: 0;
+}

@@ -1,0 +1,230 @@
+/*------------------------------------*\
+    #Footer
+\*------------------------------------*/
+
+.footer {
+    background-color: #252525;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* Footer Widgets */
+
+.footer-widget {
+    padding-top: 110px;
+    padding-bottom: 100px;
+}
+
+.footer-widget .footer--widget-title h5 {
+    color: @color-white;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+    text-transform: capitalize;
+    margin-bottom: 50px;
+}
+
+.footer-widget .footer--widget-content p {
+    color: #bdbdbd;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 26px;
+    margin-bottom: 20px;
+}
+
+.footer--widget-content .work--schedule {
+    margin-top: 25px;
+}
+
+.footer--widget-content .work--schedule li {
+    color: #bdbdbd;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.footer--widget-content .work--schedule li:last-of-type {
+    margin-bottom: 0;
+}
+
+.footer--widget-content .work--schedule li span {
+    color: #fff;
+}
+
+
+.footer--widget-recent .entry {
+    position: relative;
+    margin-bottom: 30px;
+    min-height: 70px;
+}
+
+.footer--widget-recent .entry:last-of-type {
+    margin-bottom: 0;
+}
+
+.footer--widget-recent .entry--img {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.footer--widget-recent .entry--content {
+    padding-left: 90px;
+}
+
+.footer--widget-recent .entry--meta {
+    color: #888888;
+    font-family: @font-heading;
+    font-size: 10px;
+    line-height: 1;
+}
+
+.footer--widget-recent .entry--title {
+    margin-bottom: 14px;
+}
+
+.footer--widget-recent .entry--title a {
+    color: #bdbdbd;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+}
+
+.footer--widget-recent .entry--title a:hover {
+    color: @color-theme;
+}
+
+.footer--widget-recent img {
+    border-radius: 0;
+}
+
+.footer--widget-recent span {
+    margin-right: 8px;
+}
+
+.footer-widget .footer--widget-contact ul li {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 26px;
+    color: #bdbdbd;
+    font-family: @font-body;
+    padding-left: 30px;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.footer-widget .footer--widget-contact ul li i {
+    position: absolute;
+    left: 0;
+    top: 7px;
+    color: @color-theme;
+    font-size: 16px;
+}
+
+.footer-widget .footer--widget-contact form.form--newsletter {
+    position: relative;
+    margin: 0;
+    background-color: @color-white;
+    border-radius: 42px;
+}
+
+.footer-widget .footer--widget-contact form.form--newsletter input {
+    padding: 10px 25px;
+    background-color: #fff;
+    height: 40px;
+    font-size: 13px;
+    border-radius: 42px 0 0 42px;
+    width: 270px;
+    margin: 0;
+    box-shadow: none;
+    border: none;
+}
+
+.footer-widget .footer--widget-contact form.form--newsletter button {
+    background-color: #bb8c4b;
+    border: none;
+    line-height: 40px;
+    color: #fff;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
+    height: 40px;
+    margin-bottom: 0;
+    border-radius: 0 42px 42px 0;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.footer--copyright {
+    padding: 26px 0;
+    color: #888888;
+    font-family: @font-body;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 28px;
+    text-transform: capitalize;
+    border-top: 1px solid #303030
+}
+
+.footer--copyright .social a {
+    color: #888888;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 28px;
+    margin-left: 23px;
+}
+
+.footer--copyright .social a:first-of-type {
+    margin-left: 0;
+}
+
+.footer--copyright .social a:hover {
+    color: @color-white;
+}
+
+/* Footer Light */
+
+.footer-light {
+    background-color: @color-white;
+}
+
+.footer-light .footer--copyright {
+    color: #999999;
+    border-top: none;
+}
+
+/* Custom, iPhone Retina */
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .footer-widget {
+        padding-top: 60px;
+        padding-bottom: 30px;
+    }
+    .footer-widget .footer--widget-title h5 {
+        margin-bottom: 30px;
+    }
+    .footer--copyright {
+        font-size: 12px;
+        text-align: center;
+    }
+    .footer--copyright .text-right {
+        text-align: center
+    }
+    .footer--widget-content {
+        margin-bottom: 30px;
+    }
+
+    .footer-widget .footer--widget-contact form.form--newsletter button {
+        left: auto;
+        right: 0;
+    }
+    .footer-widget .footer--widget-contact form.form--newsletter input {
+        width: 80%
+    }
+
+}
+
+/* Small Devices, Tablets */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {}

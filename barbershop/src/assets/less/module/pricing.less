@@ -1,0 +1,82 @@
+/*------------------------------------*\
+    #PRICING-SECTION
+\*------------------------------------*/
+
+.pricing-panel {
+    -webkit-transition: all 0.35s;
+    -moz-transition: all 0.35s;
+    -o-transition: all 0.35s;
+    transition: all 0.35s;
+    position: relative;
+    margin-bottom: 35px;
+    overflow: hidden;
+    position: relative
+}
+
+.pricing--content {
+    display: flex;
+}
+
+.pricing--divider {
+    height: 27px;
+    border-bottom: 1px dashed #999999;
+    flex-grow: 100;
+}
+
+.pricing-panel .pricing--heading {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 40px;
+    margin-bottom: 0;
+    color: @color-white;
+    position: relative;
+    float: left;
+    padding-right: 8px;
+}
+
+.pricing-panel .price {
+    font-family: @font-heading;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: right;
+    float: right;
+    margin-bottom: 0;
+    color: @color-white;
+    padding-left: 10px;
+}
+
+.pricing-panel .pricing--desc {
+    color: #999999;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 0;
+    padding-top: 10px;
+}
+
+/* Services #2 */
+
+.pricing-2 .pricing-panel .pricing--heading {
+    color: #222222;
+}
+
+.pricing-2 .pricing-panel .price {
+    color: @color-theme
+}
+
+.panel-wrapper {
+    background-color: #fff;
+    padding: 60px 90px
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .panel-wrapper {
+        padding: 30px
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .panel-wrapper {
+        padding: 60px
+    }
+}
