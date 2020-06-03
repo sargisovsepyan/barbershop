@@ -9,9 +9,10 @@ module.exports = function(app) {
 		.get(bookList.list_all_books)
 		.post(bookList.create_a_book);
 		
-		// app.route('/book/:bookId')
+
+		app.route('/book/:bookId')
+		.delete(bookList.delete_a_task);
 		// .get(bookList.read_a_book)
 		// .put(bookList.update_a_book)
-		// .delete(bookList.delete_a_book);
-
+		
 };

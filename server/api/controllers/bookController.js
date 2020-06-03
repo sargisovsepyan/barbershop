@@ -94,13 +94,14 @@ exports.read_a_book = function(req, res) {
 //   });
 // };
 // Task.remove({}).exec(function(){});
-// exports.delete_a_task = function(req, res) {
 
-//   Task.remove({
-//     _id: req.params.taskId
-//   }, function(err, task) {
-//     if (err)
-//       res.send(err);
-//     res.json({ message: 'Task successfully deleted' });
-//   });
-// };
+exports.delete_a_task = function(req, res) {
+
+  Task.remove({
+    _id: req.params.bookId
+  }, function(err, book) {
+    if (err)
+      res.send(err);
+    res.json({ message: 'Book successfully deleted' });
+  });
+};
