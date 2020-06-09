@@ -394,17 +394,18 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                         <input type="text" class="form-control" name="contact-name" id="name"
-                                            placeholder="Ваше имя" v-model = "nameOfC">
+                                            placeholder="Ваше имя" v-model = "nameOfC" style="font-weight: bold;" > 
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <input type="text" class="form-control" name="contact-phone" id="phone"
+                                        <input type="text" class="form-control" name="contact-phone" id="phone" style="font-weight: bold;"
                                             placeholder="Телефон" v-model = "phoneOfC">
                                     </div>
 
                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                         <div class="form-select">
                                             <i class="fa fa-angle-down"></i>
-                                            <select class="form-control" name="services" id="services" v-model = "serviceOfC" >
+                                            <select class="form-control" name="services" id="services" v-model = "serviceOfC" style="font-weight: bold;">
+                                                <option value="">Услуга</option>
                                                 <option v-for="item in services" :value="item.name" :key="item.id">{{item.name}}</option>
                                                 
                                             </select>
@@ -413,25 +414,42 @@
                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                         <div class="form-select">
                                             <i class="fa fa-angle-down"></i>
-                                            <select class="form-control" name="date" id="date" v-model = "dateOfC">
+                                            <select class="form-control" name="date" id="date" v-model = "dateOfC" style="font-weight: bold;">
                                                 <option value="">Date</option>
-                                                <option value="March 23">March 23, 2017</option>
-                                                <option value="March 24">March 24, 2017</option>
-                                                <option value="March 25">March 25, 2017</option>
-                                                <option value="March 26">March 26, 2017</option>
-                                                <option value="March 27">March 27, 2017</option>
+                                                <option>{{todayDate.getDate()}}. {{todayDate.getMonth()+1}}. {{todayDate.getFullYear()}}</option>
+                                                <option >{{todayDate.getDate()+1}}. {{todayDate.getMonth()+1}}. {{todayDate.getFullYear()}}</option>
+                                                <option >{{todayDate.getDate()+2}}. {{todayDate.getMonth()+1}}. {{todayDate.getFullYear()}}</option>
+                                                <option >{{todayDate.getDate()+3}}. {{todayDate.getMonth()+1}}. {{todayDate.getFullYear()}}</option>
+                                                <option >{{todayDate.getDate()+4}}. {{todayDate.getMonth()+1}}. {{todayDate.getFullYear()}}</option>
                                             </select>
                                         </div>
                                     </div>
                                     
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <!-- <div class="col-xs-12 col-sm-12 col-md-6">
                                         <input type="text" class="form-control" name="contact-name" id="time"
                                             placeholder="Время: " v-model = "timeOfC">
-                                    </div>
+                                    </div> -->
                                     
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-select">
+                                            <i class="fa fa-angle-down"></i>
+                                            <select class="form-control" name="date" id="date" v-model = "timeOfC" style="font-weight: bold;">
+                                                <option value="" >Время</option>
+                                                <option>12:00</option>
+                                                <option>13:30</option>
+                                                <option>15:00</option>
+                                                <option>16:30</option>
+                                                <option>18:00</option>
+                                                <option>19:30</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                        
+
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <textarea class="form-control" name="contact-message" id="message" rows="3"
-                                            placeholder="Add your notes (optional)" v-model = "noteOfC"></textarea>
+                                            placeholder="Коментарий" v-model = "noteOfC" style="font-weight: bold;"></textarea>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <input type="button" value="ОФОРМИТЬ ВИЗИТ" 
@@ -470,11 +488,14 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import * as utils from '../utils'
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 import Header from './Header.vue'
 import Footer from './Footer.vue'
 
 Vue.use(VueAxios, axios)
+Vue.use(VueSweetalert2);
 
 export default {
     components: {
@@ -492,29 +513,47 @@ export default {
         serviceOfC : "",
         dateOfC : "",
         timeOfC : "",
-        noteOfC : ""
-       
+        noteOfC : "",
+        todayDate : new Date(),
+        
    }
   },
   methods: {
       bookBtn: function(){
-          
-           Vue.axios.post("http://127.0.0.1:3000/book",{
+         
+         var d = new Date();
+        console.log(this.todayDate.getDate()+"."+(this.todayDate.getMonth()+1)+"."+(this.todayDate.getFullYear()));
+        console.log(this.todayDate);
+
+
+
+         console.log(d.getDate());
+         console.log(d.getMonth()+1);
+         console.log(d.getFullYear());
+
+    if( (this.nameOfC == "") || (this.phoneOfC == "") || (this.serviceOfC == "") || (this.dateOfC == "") || (this.timeOfC =="")){
+            Vue.swal("Введите все поля!", "", "error");
+    }else{
+           //
+            Vue.axios.post("http://127.0.0.1:3000/book",{
                name : this.nameOfC,
                phone : this.phoneOfC,
                service : this.serviceOfC,
                dateOfService : this.dateOfC,
                time: this.timeOfC,
                note : this.noteOfC
-           }).then((response) => {
-            console.log(response.data)
+            }).then((response) => {
+            console.log(response.data)  
+        })//
+
+            //alert('Вы записаны!');
+            Vue.swal("Вы записаны", "Ждем вас!", "success");
             
-           
-        })
-
+        }
+      
+      
+      
       }
-
-  
   },
    mounted: function(){
         Vue.axios.get("http://localhost:3000/WhatWeCanDo").then((response) => {
