@@ -64,7 +64,7 @@ export default {
 	  deleteBook(book, id){
 		  Vue.axios.delete("http://localhost:3000/book/" + id)
 		  .then(response => this.book.splice(index,1));
-		 //window.location.reload();
+		 window.location.reload();
 
 	  }
   
