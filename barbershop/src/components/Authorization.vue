@@ -3,7 +3,7 @@
   <div class="limiter">
 		<div class="container-login100" style="background-image: url('../assets/images/background/5.jpg');">
 			<div class="wrap-login100">  
-				<form class="login100-form validate-form">
+				<div class="login100-form validate-form">
 					<span class="login100-form-logo">
 						<img src="assets/images/icons/favicon.png" />
 					</span>
@@ -40,7 +40,7 @@
 							Forgot Password?
 						</a>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -84,8 +84,9 @@ export default {
   },
   methods: {
 
-	  log(){
+	  log() {
 		if ((this.login=="admin") && (this.password=="111")){
+			this.$store.commit('setUser', this.login);
 			this.$router.push('/AdminPanel');
 		}else{
 			 Vue.swal("Ты не админ!", "", "error");
