@@ -18,8 +18,8 @@ const routes = [
    { path: '/AboutUs', component: AboutUs },
    { path: '/OurStaff', component: OurStaff },
    { path: '/Gallery', component: Gallery },
-   {path: '/Authorization', component: Authorization},
-   {path: '/AdminPanel', component: AdminPanel, meta: {requiresAuth: true} }
+   { path: '/Authorization', component: Authorization},
+   { path: '/AdminPanel', component: AdminPanel, meta: {requiresAuth: true} }
 ]
 
 const router = new VueRouter({
@@ -28,16 +28,17 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
    if (to.matched.some(record => record.meta.requiresAuth)) {
-      // этот путь требует авторизации, проверяем залогинен ли
-      // пользователь, и если нет, перенаправляем на страницу логина
-      
+      if (store.getters.getUser === null) {
          next({
             path: '/Authorization',
             query: { redirect: to.fullPath }
          })
-       
+      }
+      else {
+         next()
+      }
    } else {
-      next() // всегда так или иначе нужно вызвать next()!
+      next() 
    }
 })
 
