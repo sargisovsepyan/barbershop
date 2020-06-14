@@ -414,7 +414,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                         <div class="form-select">
                                             <i class="fa fa-angle-down"></i>
-                                            <select class="form-control" name="date" id="date" v-model = "dateOfC" style="font-weight: bold;">
+                                            <select class="form-control" name="date" id="date" v-model = "dateOfC"  @change="selectDate()" style="font-weight: bold;">
                                                 <option value="">Date</option>
                                                 <option>{{todayDate.getDate()}}. {{todayDate.getMonth()+1}}. {{todayDate.getFullYear()}}</option>
                                                 <option >{{todayDate.getDate()+1}}. {{todayDate.getMonth()+1}}. {{todayDate.getFullYear()}}</option>
@@ -425,22 +425,15 @@
                                         </div>
                                     </div>
                                     
-                                    <!-- <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <input type="text" class="form-control" name="contact-name" id="time"
-                                            placeholder="Время: " v-model = "timeOfC">
-                                    </div> -->
+                
                                     
                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                         <div class="form-select">
                                             <i class="fa fa-angle-down"></i>
-                                            <select class="form-control" name="date" id="date" v-model = "timeOfC" style="font-weight: bold;">
+                                            <select class="form-control" name="date" id="date" v-model = "timeOfC" style="font-weight: bold;" >
                                                 <option value="" >Время</option>
-                                                <option>12:00</option>
-                                                <option>13:30</option>
-                                                <option>15:00</option>
-                                                <option>16:30</option>
-                                                <option>18:00</option>
-                                                <option>19:30</option>
+                                                <option v-for="timeFromServer in times" v-bind:key="timeFromServer.time" :value="timeFromServer._id">{{timeFromServer.time}}</option>
+                                               
                                             </select>
                                         </div>
                                     </div>
@@ -508,6 +501,7 @@ export default {
         services : [],
         gallery : [],
         masters : [],
+        times: [],
         nameOfC : "",
         phoneOfC : "",
         serviceOfC : "",
@@ -519,29 +513,37 @@ export default {
    }
   },
   methods: {
+      selectDate: function() {
+        Vue.axios.get("http://localhost:3000/book/" + this.dateOfC).then((response) => {
+            console.log(response.data)
+            this.times = response.data
+          
+        })
+      },
       bookBtn: function(){
-         
          var d = new Date();
-        console.log(this.todayDate.getDate()+"."+(this.todayDate.getMonth()+1)+"."+(this.todayDate.getFullYear()));
-        console.log(this.todayDate);
+        // console.log(this.todayDate.getDate()+"."+(this.todayDate.getMonth()+1)+"."+(this.todayDate.getFullYear()));
+        // console.log(this.todayDate);
 
 
 
-         console.log(d.getDate());
-         console.log(d.getMonth()+1);
-         console.log(d.getFullYear());
+        //  console.log(d.getDate());
+        //  console.log(d.getMonth()+1);
+        //  console.log(d.getFullYear());
 
     if( (this.nameOfC == "") || (this.phoneOfC == "") || (this.serviceOfC == "") || (this.dateOfC == "") || (this.timeOfC =="")){
             Vue.swal("Введите все поля!", "", "error");
     }else{
            //
-            Vue.axios.post("http://127.0.0.1:3000/book",{
+          
+            Vue.axios.put("http://127.0.0.1:3000/book/" + this.timeOfC, {
                name : this.nameOfC,
                phone : this.phoneOfC,
                service : this.serviceOfC,
                dateOfService : this.dateOfC,
                time: this.timeOfC,
-               note : this.noteOfC
+               note : this.noteOfC,
+               booked: true
             }).then((response) => {
             console.log(response.data)  
         })//
