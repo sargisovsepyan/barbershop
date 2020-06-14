@@ -10,7 +10,7 @@ var express = require('express'),
   bodyParser = require('body-parser');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/barbershop');
+mongoose.connect('mongodb://localhost/sargis');
 
 
 app.use(bodyParser.urlencoded({ extended: true }));

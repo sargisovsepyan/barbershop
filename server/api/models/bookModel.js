@@ -30,6 +30,9 @@ var TaskSchema = new Schema({
     type: String,
 
   },
+  booked: {
+    type: Boolean,
+  },
   Created_date: {
     type: Date,
     default: Date.now

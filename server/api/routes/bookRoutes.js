@@ -11,8 +11,11 @@ module.exports = function(app) {
 		
 
 		app.route('/book/:bookId')
-		.delete(bookList.delete_a_task);
-		// .get(bookList.read_a_book)
-		// .put(bookList.update_a_book)
+		.delete(bookList.delete_a_task)
+		.put(bookList.update_a_book);
+
+		app.route('/book/:dateOFC')	
+		.get(bookList.read_a_book);
+		
 		
 };

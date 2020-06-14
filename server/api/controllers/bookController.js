@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-Task = mongoose.model('book');
+Book = mongoose.model('book');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 
@@ -21,7 +21,7 @@ var transporter = nodemailer.createTransport(smtpTransport({
 
 
 exports.list_all_books = function(req, res) {
-  Task.find({}, function(err, task) {
+  Book.find({}, function(err, task) {
     if (err)
       res.send(err);
     res.json(task);
@@ -37,6 +37,7 @@ exports.create_a_book = function(req, res) {
     if (err) 
       res.send(err);
       res.json(task);
+ 
       
  ///
       //var options = {
@@ -51,6 +52,7 @@ exports.create_a_book = function(req, res) {
         //};    
         //transporter.use('compile', hbs(options));
 ///
+
 
 
 
@@ -78,11 +80,27 @@ var mailOptions = {
   });
 };
 
-exports.read_a_book = function(req, res) {
-  Task.findById(req.params.bookId, function(err, book) {
+// exports.read_a_book = function(req, res) {
+//   Task.findById(req.params.bookId, function(err, book) {
+//     if (err)
+//       res.send(err);
+//     res.json(book);
+//   });
+// };
+exports.update_a_book = function(req, res) {
+  Book.findOneAndUpdate({_id:req.params.bookId}, req.body, {booked: true}, function(err, book) {
     if (err)
       res.send(err);
     res.json(book);
+  });
+};
+
+exports.read_a_book = function(req, res) {
+  console.log(req.params.dateOFC.replace(/ /g,''));
+  Book.find({ dateOfService: req.params.dateOFC.replace(/ /g,''), booked: false }, function(err, result) {
+    if (err)
+      res.send(err);
+      res.json(result);
   });
 };
 
