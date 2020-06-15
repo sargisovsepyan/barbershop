@@ -53,9 +53,6 @@ exports.create_a_book = function(req, res) {
         //transporter.use('compile', hbs(options));
 ///
 
-
-
-
   //Step 2    
 var mailOptions = {
   from: 'sargisovsepyan@gmail.com',
@@ -90,9 +87,25 @@ var mailOptions = {
 exports.update_a_book = function(req, res) {
   Book.findOneAndUpdate({_id:req.params.bookId}, req.body, {booked: true}, function(err, book) {
     if (err)
-      res.send(err);
+    res.send(err);
     res.json(book);
+    var mailOptions = {
+      from: 'sargisovsepyan@gmail.com',
+      to: 'sargisovsepyan@gmail.com',
+      subject: 'New book salons',
+      html: "<div style='margin:0px;padding:10px;background-color:#FEFEFA;border:2px solid #000000'><img src='cid:5.jpg' width='100%'><h3>Имя: "+req.body.name+"</h3> <h3>Телефон: " + req.body.phone + "</h3>  <h3>Услуга: " + req.body.service + "</h3> <h3>Дата: " + req.body.dateOfService + "</h3> <h3>Время: "+req.body.time+"</h3> <h3>Приметка: " + req.body.note +"</h3></div>",
+    };
+    
+    //Step 3
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log("sargis"+error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
   });
+ 
 };
 
 exports.read_a_book = function(req, res) {

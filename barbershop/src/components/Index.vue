@@ -432,7 +432,7 @@
                                             <i class="fa fa-angle-down"></i>
                                             <select class="form-control" name="date" id="date" v-model = "timeOfC" style="font-weight: bold;" >
                                                 <option value="" >Время</option>
-                                                <option v-for="timeFromServer in times" v-bind:key="timeFromServer.time" :value="timeFromServer._id">{{timeFromServer.time}}</option>
+                                                <option v-for="timeFromServer in times" v-bind:key="timeFromServer.time" :value="timeFromServer">{{timeFromServer.time}}</option>
                                                
                                             </select>
                                         </div>
@@ -536,12 +536,12 @@ export default {
     }else{
            //
           
-            Vue.axios.put("http://127.0.0.1:3000/book/" + this.timeOfC, {
+            Vue.axios.put("http://127.0.0.1:3000/book/" + this.timeOfC._id, {
                name : this.nameOfC,
                phone : this.phoneOfC,
                service : this.serviceOfC,
                dateOfService : this.dateOfC,
-               time: this.timeOfC,
+               time: this.timeOfC.time,
                note : this.noteOfC,
                booked: true
             }).then((response) => {
