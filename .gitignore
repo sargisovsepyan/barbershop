@@ -1,6 +1,29 @@
-logs
+# Dependencies
+node_modules/
+
+# Local environment configuration
+.env
+.env.*
+!.env.example
+
+# Logs
 *.log
 npm-debug.log*
-node_modules
-.npm
+yarn-debug.log*
+yarn-error.log*
+
+# Build and test output
+dist/
+coverage/
+
+# Local MongoDB data
+data/db/
+
+# Tooling and operating-system files
+.cache/
+.idea/
+.vscode/
 .DS_Store
+Thumbs.db
+*.swp
+*.swo
