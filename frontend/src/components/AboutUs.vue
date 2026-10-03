@@ -1,165 +1,136 @@
 <template>
     <div id="wrapper" class="wrapper clearfix">
-         <Header/>
-<!-- Page Title #1
-============================================= -->
-<section id="page-title" class="page-title bg-overlay bg-overlay-dark bg-parallax">
-    <div class="bg-section">
-        <img src="assets/images/page-titles/7.jpg" alt="Background" />
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="title title-1 text-center">
-                    <div class="title--heading">
-                        <h1>About Us</h1>
-                    </div>
-                    <div class="clearfix"></div>
-                    <ol class="breadcrumb">
-                        <li><a href="index-3.html">Home</a></li>
-                        <li class="active">About Us</li>
-                    </ol>
-                </div>
-                <!-- .title end -->
-            </div>
-            <!-- .col-md-12 end -->
-        </div>
-        <!-- .row end -->
-    </div>
-    <!-- .container end -->
-</section>
-<!-- #page-title end -->
+        <Header/>
+        <InnerPageHero
+            title="О нас"
+            subtitle="Традиции барберинга, мастерство и внимание к деталям."
+            image="assets/images/page-titles/7.jpg"
+        />
 
-<!-- Video #2
-============================================= -->
-<section id="video2" class="video-button video-button-1">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="heading heading-2 mb-30 pt-50">
-                    <h2 class="heading--title">Barbershop hairy<br></h2>
-                </div>
-                <p>Hairy - это больше, чем мужская парикмахерская и уж точно не салон красоты. Здесь работают мастера своего дела, знающие, как из мельчайших деталей собирается образ настоящей мужественности. Пользуясь лучшей мужской косметикой, которую мы закупаем в самых разных уголках света, мы чтем трехсотлетние традиции классической стрижки и ухода за бородой, ну и конечно же, королевского бритья.</p>
-
-                <p>Посетив наш барбершоп, вы поймете, что такое быть "нашим человеком". Наш барбер - это не просто парикмахер, к которому приходят за стрижкой, а еще и приятель, за работой которого можно пропустить стаканчик Jameson, обсуждая политику или футбол.</p>
-                <img src="assets/images/icons/signature.png" alt="signature">
-            </div>
-            <!-- .col-md-6 end -->
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="video--content">
-                    <div class="bg-section">
-                        <img src="assets/images/background/4.jpg" alt="Background" />
-                    </div>
-                    <div class="video-overlay">
-                        <div class="video--button">
-                            <div class="pos-vertical-center">
-                                <a class="popup-video" href="https://www.youtube.com/watch?v=nrJtHemSPW4">
-									<i class="fa fa-play"></i>
-								</a>
-                            </div>
+        <section class="about-story">
+            <div class="container">
+                <div class="row about-story__row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 about-story__copy">
+                        <div class="heading heading-2 mb-30">
+                            <h2 class="heading--title">Barbershop Hairy</h2>
                         </div>
-                        <!-- .video--player end -->
+                        <p>Hairy — это больше, чем мужская парикмахерская и уж точно не салон красоты. Здесь работают мастера своего дела, знающие, как из мельчайших деталей собирается образ настоящей мужественности. Пользуясь качественной мужской косметикой, мы чтим традиции классической стрижки, ухода за бородой и королевского бритья.</p>
+                        <p>Посетив наш барбершоп, вы поймёте, что значит быть «нашим человеком». Наш барбер — не просто парикмахер, к которому приходят за стрижкой, но и приятель, с которым можно поговорить о важных вещах.</p>
+                        <img class="about-story__signature" src="assets/images/icons/signature.png" alt="Hairy">
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <img class="about-story__image" src="assets/images/background/4.jpg"
+                            alt="Мастер Hairy за работой">
                     </div>
                 </div>
             </div>
-            <!-- .col-md-6 end -->
-        </div>
-        <!-- .row end -->
+        </section>
+
+        <section id="counter1" class="counter counter-1 bg-gray about-counters">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="count-box text-center">
+                            <div class="count-img"><img src="assets/images/icons/1.png" alt=""></div>
+                            <div class="counting">6</div>
+                            <div class="count-title">Барберов</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="count-box text-center">
+                            <div class="count-img"><img src="assets/images/icons/7.png" alt=""></div>
+                            <div class="counting">2000</div>
+                            <div class="count-title">Счастливых клиентов</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="count-box text-center">
+                            <div class="count-img"><img src="assets/images/icons/8.png" alt=""></div>
+                            <div class="counting">370</div>
+                            <div class="count-title">Постоянных клиентов</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="count-box text-center">
+                            <div class="count-img"><img src="assets/images/icons/9.png" alt=""></div>
+                            <div class="counting">16</div>
+                            <div class="count-title">Лет опыта</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <Footer/>
     </div>
-    <!-- .container end -->
-</section>
-<!-- #video2 end -->
-
-<!-- Counter #1
-============================================= -->
-<section id="counter1" class="counter counter-1 bg-gray">
-    <div class="container">
-        <div class="row">
-            <!-- count #1 -->
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="count-box text-center">
-                    <div class="count-img">
-                        <img src="assets/images/icons/1.png" alt="count box">
-                    </div>
-                    <div class="counting">6</div>
-                    <div class="count-title">Барберов</div>
-                </div>
-            </div>
-            <!-- .col-md-3 end -->
-
-            <!-- count #2 -->
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="count-box text-center">
-                    <div class="count-img">
-                        <img src="assets/images/icons/7.png" alt="count box">
-                    </div>
-                    <div class="counting">2000</div>
-                    <div class="count-title">Счастливых клиеннтов</div>
-                </div>
-            </div>
-            <!-- .col-md-3 end -->
-
-            <!-- count #3 -->
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="count-box text-center">
-                    <div class="count-img">
-                        <img src="assets/images/icons/8.png" alt="count box">
-                    </div>
-                    <div class="counting">370</div>
-                    <div class="count-title">Постоянных клиентов</div>
-                </div>
-            </div>
-            <!-- .col-md-3 end -->
-
-            <!-- count #4 -->
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="count-box text-center">
-                    <div class="count-img">
-                        <img src="assets/images/icons/9.png" alt="count box">
-                    </div>
-                    <div class="counting">16</div>
-                    <div class="count-title">Опыт работы</div>
-                </div>
-            </div>
-            <!-- .col-md-3 end -->
-        </div>
-        <!-- .row end -->
-    </div>
-    <!-- .container end -->
-</section>
-<!-- #counter1 end -->
-
-
-
-
-<!-- Footer #5
-============================================= -->
-    <Footer/>
-</div>
-
 </template>
 
 <script>
-import * as utils from '../utils'
-
 import Header from './Header.vue'
 import Footer from './Footer.vue'
+import InnerPageHero from './InnerPageHero.vue'
 
-    export default {
-       components: {
-       Header,
-       Footer
-       },
-    beforeRouteEnter (to, from, next) {
-        next(() => {
-            utils.updatePageWithJQuery()
-        })
+export default {
+    components: {
+        Header,
+        Footer,
+        InnerPageHero
     }
-    }
-
-
+}
 </script>
 
 <style>
+.about-story {
+    padding: 90px 0;
+}
 
+.about-story__row {
+    display: flex;
+    align-items: center;
+}
+
+.about-story__copy p {
+    max-width: 560px;
+    color: #777777;
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+.about-story__signature {
+    max-width: 150px;
+    margin-top: 14px;
+}
+
+.about-story__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.about-counters {
+    padding: 80px 0 55px;
+}
+
+@media only screen and (max-width: 767px) {
+    .about-story {
+        padding: 60px 0;
+    }
+
+    .about-story__row {
+        display: block;
+    }
+
+    .about-story__copy {
+        margin-bottom: 38px;
+    }
+
+    .about-story__copy .heading {
+        padding-top: 0;
+    }
+
+    .about-counters {
+        padding: 55px 0 30px;
+    }
+}
 </style>
