@@ -21,6 +21,7 @@ data/db/
 
 # Tooling and operating-system files
 .cache/
+.runtime/
 .idea/
 .vscode/
 .DS_Store

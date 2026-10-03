@@ -164,29 +164,86 @@
     });
 
     /* ------------------ OWL CAROUSEL ------------------ */
-    $(".carousel").each(function () {
-        var $Carousel = $(this);
-        $Carousel.owlCarousel({
-            loop: $Carousel.data('loop'),
-            autoplay: $Carousel.data("autoplay"),
-            margin: $Carousel.data('space'),
-            nav: $Carousel.data('nav'),
-            dots: $Carousel.data('dots'),
-            center: $Carousel.data('center'),
-            dotsSpeed: $Carousel.data('speed'),
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                600: {
-                    items: $Carousel.data('slide-rs'),
-                },
-                1000: {
-                    items: $Carousel.data('slide'),
-                }
+    window.initializeLegacyCarousels = function (context) {
+        var $context = context ? $(context) : $(document);
+        var $carousels = $context.filter(".carousel").add($context.find(".carousel"));
+
+        $carousels.each(function () {
+            var $Carousel = $(this);
+            var originalAddEventListener;
+            var resizeHandlers = [];
+
+            if ($Carousel.hasClass("owl-loaded")) {
+                return;
             }
+
+            // This bundled Owl build registers its resize handler with the native
+            // API, but its destroy method tries to remove it through jQuery. Keep
+            // the native handler so Vue route teardown can remove it correctly.
+            originalAddEventListener = window.addEventListener;
+            window.addEventListener = function (type, listener, options) {
+                if (type === "resize") {
+                    resizeHandlers.push({
+                        listener: listener,
+                        options: options
+                    });
+                }
+
+                return originalAddEventListener.call(window, type, listener, options);
+            };
+
+            try {
+                $Carousel.owlCarousel({
+                    loop: $Carousel.data('loop'),
+                    autoplay: $Carousel.data("autoplay"),
+                    margin: $Carousel.data('space'),
+                    nav: $Carousel.data('nav'),
+                    dots: $Carousel.data('dots'),
+                    center: $Carousel.data('center'),
+                    dotsSpeed: $Carousel.data('speed'),
+                    responsive: {
+                        0: {
+                            items: 1,
+                        },
+                        600: {
+                            items: $Carousel.data('slide-rs'),
+                        },
+                        1000: {
+                            items: $Carousel.data('slide'),
+                        }
+                    }
+                });
+            } finally {
+                window.addEventListener = originalAddEventListener;
+            }
+
+            $Carousel.data("legacyOwlResizeHandlers", resizeHandlers);
         });
-    });
+    };
+
+    window.destroyLegacyCarousels = function (context) {
+        var $context = context ? $(context) : $(document);
+        var $carousels = $context.filter(".carousel.owl-loaded").add($context.find(".carousel.owl-loaded"));
+
+        $carousels.each(function () {
+            var $Carousel = $(this);
+            var carousel = $Carousel.data("owlCarousel");
+            var resizeHandlers = $Carousel.data("legacyOwlResizeHandlers") || [];
+
+            if (carousel && carousel.resizeTimer) {
+                window.clearTimeout(carousel.resizeTimer);
+            }
+
+            $.each(resizeHandlers, function (_, handler) {
+                window.removeEventListener("resize", handler.listener, handler.options);
+            });
+
+            $Carousel.removeData("legacyOwlResizeHandlers");
+            $Carousel.trigger("destroy.owl.carousel");
+        });
+    };
+
+    window.initializeLegacyCarousels(document);
     /* ------------------ MAGNIFIC POPUP ------------------ */
     var $imgPopup = $(".img-popup");
     $imgPopup.magnificPopup({

@@ -10,10 +10,8 @@
             data-nav="true" data-dots="true" data-space="0" data-loop="true" data-speed="800">
 
             <!-- Slide #1 -->
-            <div class="slide--item bg-overlay bg-overlay-dark">
-                <div class="bg-section">
-                    <img src="assets/images/sliders/slide-bg/1.jpg" alt="background">
-                </div>
+            <div class="slide--item bg-section bg-overlay bg-overlay-dark"
+                style="background-image: url('assets/images/sliders/slide-bg/1.jpg')">
                 <div class="pos-vertical-center">
                     <div class="container">
                         <div class="row">
@@ -33,10 +31,8 @@
             <!-- .slide-item end -->
 
             <!-- Slide #2 -->
-            <div class="slide--item bg-overlay bg-overlay-dark">
-                <div class="bg-section">
-                    <img src="assets/images/sliders/slide-bg/2.jpg" alt="background">
-                </div>
+            <div class="slide--item bg-section bg-overlay bg-overlay-dark"
+                style="background-image: url('assets/images/sliders/slide-bg/2.jpg')">
                 <div class="pos-vertical-center">
                     <div class="container">
                         <div class="row">
@@ -56,15 +52,13 @@
             <!-- .slide-item end -->
 
             <!-- Slide #3 -->
-            <div class="slide--item bg-overlay bg-overlay-dark">
-                <div class="bg-section">
-                    <img src="assets/images/sliders/slide-bg/3.jpg" alt="background">
-                </div>
+            <div class="slide--item bg-section bg-overlay bg-overlay-dark"
+                style="background-image: url('assets/images/sliders/slide-bg/3.jpg')">
                 <div class="pos-vertical-center">
                     <div class="container">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 text--center">
-                                <div class="slide--headline">Наши клеинты доверяют нам</div>
+                                <div class="slide--headline">Наши Клиенты Доверяют Нам</div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 text--center">
                                 <div class="slide--bio">Мы как никто другой ценим чистоту, открытость, комфорт, качество
@@ -122,10 +116,8 @@
 
         <!-- pricing #2
 ============================================= -->
-        <section id="pricing2" class="pricing pricing-2 bg-overlay bg-overlay-dark bg-parallax">
-            <div class="bg-section">
-                <img src="assets/images/background/5.jpg" alt="Background" />
-            </div>
+        <section id="pricing2" class="pricing pricing-2 bg-section bg-overlay bg-overlay-dark bg-parallax"
+            style="background-image: url('assets/images/background/5.jpg')">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
@@ -236,10 +228,9 @@
 
         <!-- Testimonial #2
 ============================================= -->
-        <section id="testimonial2" class="testimonial testimonial-2 bg-overlay bg-overlay-dark bg-parallax text-center">
-            <div class="bg-section">
-                <img src="assets/images/background/7.jpg" alt="Background" />
-            </div>
+        <section id="testimonial2"
+            class="testimonial testimonial-2 bg-section bg-overlay bg-overlay-dark bg-parallax text-center"
+            style="background-image: url('assets/images/background/7.jpg')">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
@@ -371,10 +362,8 @@
 
         <!-- Booking
 ============================================= -->
-        <section id="booking" class="booking booking-2 bg-overlay bg-overlay-dark bg-parallax text-center">
-            <div class="bg-section">
-                <img src="assets/images/testimonial/bg-1.jpg" alt="Background" />
-            </div>
+        <section id="booking" class="booking booking-2 bg-section bg-overlay bg-overlay-dark bg-parallax text-center"
+            style="background-image: url('assets/images/testimonial/bg-1.jpg')">
             <div class="container">
                 <div class="row clearfix">
                     <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
@@ -480,7 +469,6 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import * as utils from '../utils'
 import { API_BASE_URL } from '../api'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
@@ -514,6 +502,11 @@ export default {
    }
   },
   methods: {
+      initializeCarousels: function() {
+        if (typeof window.initializeLegacyCarousels === 'function') {
+          window.initializeLegacyCarousels(this.$el)
+        }
+      },
       selectDate: function() {
         Vue.axios.get(API_BASE_URL + "/book/" + encodeURIComponent(this.dateOfC)).then((response) => {
             this.times = response.data
@@ -547,6 +540,8 @@ export default {
       }
   },
    mounted: function(){
+        this.$nextTick(this.initializeCarousels)
+
         Vue.axios.get(API_BASE_URL + "/WhatWeCanDo").then((response) => {
             this.WhatWeCanDo = response.data;
         })
@@ -564,10 +559,10 @@ export default {
         })
 
     },
-    beforeRouteEnter (to, from, next) {
-        next(() => {
-            utils.updatePageWithJQuery()
-        })
+    beforeDestroy: function() {
+        if (typeof window.destroyLegacyCarousels === 'function') {
+            window.destroyLegacyCarousels(this.$el)
+        }
     }
 }
 </script>
