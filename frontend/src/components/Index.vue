@@ -182,7 +182,7 @@
 
 
                         <!-- gallery #1 -->
-                        <span v-for="item in gallery" v-bind:key="item.id">
+                        <span v-for="item in gallery" v-bind:key="item._id || item.imgsrc">
                             <div class="col-xs-12 col-sm-6 col-md-4 gallery-item filter-Lineup">
                                 <div class="gallery--img">
 
@@ -215,7 +215,7 @@
                 <!-- .row end -->
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 clearfix mt-30 text--center">
-                        <router-link to="/Gallery" class="btn btn--secondary btn--bordered btn--rounded">See Gallery</router-link>
+                        <router-link to="/Gallery" class="btn btn--secondary btn--bordered btn--rounded">Смотреть галерею</router-link>
                         
                     </div>
                     <!-- .col-md-12 end -->
@@ -236,7 +236,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
                         <div id="testimonial-carousel" class="carousel carousel-dots carousel-white" data-slide="1"
                             data-slide-rs="1" data-autoplay="true" data-nav="false" data-dots="true" data-space="30"
-                            data-loop="true" data-speed="5000">
+                            data-loop="true" data-speed="600" data-autoplay-timeout="5500">
                             <!-- Testimonial #1 -->
                             <div class="testimonial-panel">
                                 <div class="testimonial--meta-content">
@@ -302,9 +302,8 @@
                     <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
                         <div class="text--center heading heading-2 mb-70">
                             <h2 class="heading--title">Мастера</h2>
-                            <p class="heading--desc mb-0">В наших барбершопах работают исключительно высококлассные
-                                профессионалы, обладающие набором дипломов и сертификатов, которые закончили образование
-                                в лучших мировых школах.</p>
+                            <p class="heading--desc mb-0">Команда мастеров Hairy помогает подобрать стрижку и уход,
+                                которые подходят вашему стилю и характеру.</p>
                             <div class="divider--line divider--center"></div>
                         </div>
                     </div>
@@ -315,7 +314,7 @@
                 
                     <div class="row">
 
-                        <span v-for="barber in masters">
+                        <span v-for="barber in masters" :key="barber._id || barber.imgsrc">
                             <!-- Members #1 -->
                             <div class="col-xs-12 col-sm-4 col-md-4">
                                 <div class="member">
@@ -324,9 +323,12 @@
                                         <div class="member-overlay">
                                             <div class="member-social">
                                                 <div class="pos-vertical-center">
-                                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                                    <a href="https://www.facebook.com/" target="_blank"
+                                                        rel="noopener noreferrer" aria-label="Facebook"><i
+                                                            class="fa fa-facebook"></i></a>
+                                                    <a href="https://www.instagram.com/" target="_blank"
+                                                        rel="noopener noreferrer" aria-label="Instagram"><i
+                                                            class="fa fa-instagram"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -335,7 +337,7 @@
                                     <!-- .member-img end -->
                                     <div class="member-info">
                                         <h5>{{barber.name}}</h5>
-                                        <h6>{{barber.position}}</h6>
+                                        <h6>{{localizedPosition(barber.position)}}</h6>
                                     </div>
                                     <!-- .member-info end -->
                                 </div>
@@ -348,7 +350,7 @@
 
                     <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 clearfix mt-30 text--center">
-                        <router-link to="OurStaff"  class="btn btn--secondary btn--bordered btn--rounded">See Masters</router-link> 
+                        <router-link to="/OurStaff" class="btn btn--secondary btn--bordered btn--rounded">Все мастера</router-link>
                     </div>
                     <!-- .col-md-12 end -->
                 </div>
@@ -404,7 +406,7 @@
                                         <div class="form-select">
                                             <i class="fa fa-angle-down"></i>
                                             <select class="form-control" name="date" id="date" v-model = "dateOfC"  @change="selectDate()" style="font-weight: bold;">
-                                                <option value="">Date</option>
+                                                <option value="">Дата</option>
                                                 <option>{{todayDate.getDate()}}. {{todayDate.getMonth()+1}}. {{todayDate.getFullYear()}}</option>
                                                 <option >{{todayDate.getDate()+1}}. {{todayDate.getMonth()+1}}. {{todayDate.getFullYear()}}</option>
                                                 <option >{{todayDate.getDate()+2}}. {{todayDate.getMonth()+1}}. {{todayDate.getFullYear()}}</option>
@@ -431,7 +433,7 @@
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <textarea class="form-control" name="contact-message" id="message" rows="3"
-                                            placeholder="Коментарий" v-model = "noteOfC" style="font-weight: bold;"></textarea>
+                                            placeholder="Комментарий" v-model = "noteOfC" style="font-weight: bold;"></textarea>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <input type="button" value="ОФОРМИТЬ ВИЗИТ" 
@@ -506,6 +508,9 @@ export default {
         if (typeof window.initializeLegacyCarousels === 'function') {
           window.initializeLegacyCarousels(this.$el)
         }
+      },
+      localizedPosition: function(position) {
+        return position === 'Barber' ? 'Барбер' : position
       },
       selectDate: function() {
         Vue.axios.get(API_BASE_URL + "/book/" + encodeURIComponent(this.dateOfC)).then((response) => {

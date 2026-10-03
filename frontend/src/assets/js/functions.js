@@ -192,6 +192,9 @@
                 return originalAddEventListener.call(window, type, listener, options);
             };
 
+            var transitionSpeed = Number($Carousel.data('speed')) || 600;
+            var autoplayTimeout = Number($Carousel.data('autoplay-timeout')) || 5500;
+
             try {
                 $Carousel.owlCarousel({
                     loop: $Carousel.data('loop'),
@@ -200,7 +203,11 @@
                     nav: $Carousel.data('nav'),
                     dots: $Carousel.data('dots'),
                     center: $Carousel.data('center'),
-                    dotsSpeed: $Carousel.data('speed'),
+                    smartSpeed: transitionSpeed,
+                    dotsSpeed: transitionSpeed,
+                    navSpeed: transitionSpeed,
+                    autoplaySpeed: transitionSpeed,
+                    autoplayTimeout: autoplayTimeout,
                     responsive: {
                         0: {
                             items: 1,

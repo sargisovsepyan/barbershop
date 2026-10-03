@@ -1,165 +1,267 @@
 <template>
     <div id="wrapper" class="wrapper clearfix">
-         <Header/>
+        <Header/>
+        <InnerPageHero
+            title="Галерея"
+            subtitle="Работы наших мастеров: стрижки, бороды, бритьё и детали образа."
+            image="assets/images/page-titles/6.jpg"
+        />
 
-<!-- Page Title #1
-============================================= -->
-<section id="page-title" class="page-title bg-overlay bg-overlay-dark bg-parallax">
-    <div class="bg-section">
-        <img src="assets/images/page-titles/6.jpg" alt="Background" />
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="title text-center">
-                    <div class="title--heading">
-                        <h1>3 Columns</h1>
+        <section id="gallery" class="gallery gallery-grid gallery-3col gallery-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 gallery-filter gallery-page__filters">
+                        <ul class="list-inline mb-0" aria-label="Фильтр галереи">
+                            <li v-for="filter in filters" :key="filter.value">
+                                <button type="button" :class="{ 'active-filter': activeCategory === filter.value }"
+                                    @click="setCategory(filter.value)">{{ filter.label }}</button>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="clearfix"></div>
-                    <ol class="breadcrumb">
-                        <li><a href="index-3.html">Home</a></li>
-                        <li><a href="index-3.html">gallery</a></li>
-                        <li class="active">3 Columns</li>
-                    </ol>
                 </div>
-                <!-- .title end -->
-            </div>
-            <!-- .col-md-12 end -->
-        </div>
-        <!-- .row end -->
-    </div>
-    <!-- .container end -->
-</section>
-<!-- #page-title end -->
 
-<!-- gallery 3 Column
-============================================= -->
-<section id="gallery" class="gallery gallery-grid gallery-3col">
-    <div class="container">
-        <div class="row">
-            <!-- gallery Filter
-			============================================= -->
-            <div class="col-xs-12 col-sm-12 col-md-12 gallery-filter">
-                <ul class="list-inline mb-0">
-                    <li><a class="active-filter" href="#" data-filter="*">All</a></li>
-                    <li><a href="#" data-filter=".filter-Hairstyle">Hairstyle</a></li>
-                    <li><a href="#" data-filter=".filter-Beard">Beard</a></li>
-                    <li><a href="#" data-filter=".filter-Lineup">Lineup</a></li>
-                    <li><a href="#" data-filter=".filter-Shave">Shave</a></li>
-                </ul>
-            </div>
-            <!-- .gallery-filter end -->
-        </div>
-        <div id="gallery-all">
-            <!-- gallery #1 -->
-            <span v-for="item in gallery" :key="item.imgsrc">
-                <div class="col-xs-12 col-sm-6 col-md-4 gallery-item filter-Lineup">
-                    <div class="gallery--img">
-                        <img v-bind:src="item.imgsrc">
-                        <div class="gallery--hover">
-                            <div class="gallery--action">
-                                <div class="pos-vertical-center">
-                                    <div class="gallery--title">
-                                        <h4><a href="#">Modern Haircut</a></h4>
-                                    </div>
-                                    <div class="gallery--cat">
-                                        <a href="#">Hairstyle</a> <a href="#">Lineup</a>
+                <div ref="galleryGrid" id="gallery-all" class="row gallery-page__grid">
+                    <div v-for="item in paginatedGallery" :key="item._id || item.imgsrc"
+                        class="col-xs-12 col-sm-6 col-md-4 gallery-item">
+                        <div class="gallery--img">
+                            <img :src="item.imgsrc" :alt="categoryText(item.categories)">
+                            <div class="gallery--hover">
+                                <div class="gallery--action">
+                                    <div class="pos-vertical-center gallery-page__category">
+                                        <span v-for="category in item.categories" :key="category">
+                                            {{ categoryLabel(category) }}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
-                            <!-- .gallery-action end -->
                         </div>
-                        <!-- .gallery-hover end -->
                     </div>
-                    <!-- .gallery-img end -->
                 </div>
-            </span>
-            <!-- . gallery-item end -->
 
-         
-        </div>
-        <!-- .row end -->
-        <!-- .row end -->
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 clearfix mt-30 text--center">
-                <ul class="pagination">
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li>
-                        <a class="pagination-next" href="#" aria-label="Next">
-					  <span aria-hidden="true">next <i class="fa fa-angle-right"></i></span>
-				  </a>
-                    </li>
-                </ul>
+                <div v-if="totalPages > 1" class="row">
+                    <div class="col-xs-12 clearfix mt-30 text--center">
+                        <ul class="pagination gallery-page__pagination" aria-label="Страницы галереи">
+                            <li :class="{ disabled: currentPage === 1 }">
+                                <button type="button" :disabled="currentPage === 1"
+                                    @click="goToPage(currentPage - 1)">‹ Назад</button>
+                            </li>
+                            <li v-for="page in pageNumbers" :key="page" :class="{ active: currentPage === page }">
+                                <button type="button" @click="goToPage(page)">{{ page }}</button>
+                            </li>
+                            <li :class="{ disabled: currentPage === totalPages }">
+                                <button type="button" :disabled="currentPage === totalPages"
+                                    @click="goToPage(currentPage + 1)">Далее ›</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <!-- .col-md-12 end -->
-        </div>
-        <!-- .row end -->
-    </div>
-    <!-- .container end -->
-</section>
-<!-- #gallery end -->
-<!-- Footer #5
-============================================= -->
-    <Footer/>
-</div>
+        </section>
 
+        <Footer/>
+    </div>
 </template>
 
-
-<script type="text/javascript">
-import Vue from 'vue'
+<script>
 import axios from 'axios'
-import VueAxios from 'vue-axios'
-import * as utils from '../utils'
 import { API_BASE_URL } from '../api'
-
 import Header from './Header.vue'
 import Footer from './Footer.vue'
-Vue.use(VueAxios, axios)
+import InnerPageHero from './InnerPageHero.vue'
+
+const galleryCategoryMap = {
+    'assets/images/gallery/3col/1.jpg': ['Lineup'],
+    'assets/images/gallery/3col/2.jpg': ['Beard'],
+    'assets/images/gallery/3col/3.jpg': ['Hairstyle', 'Shave'],
+    'assets/images/gallery/3col/4.jpg': ['Hairstyle'],
+    'assets/images/gallery/3col/5.jpg': ['Lineup'],
+    'assets/images/gallery/3col/6.jpg': ['Hairstyle'],
+    'assets/images/gallery/3col/7.jpg': ['Shave'],
+    'assets/images/gallery/3col/8.jpg': ['Hairstyle'],
+    'assets/images/gallery/3col/9.jpg': ['Lineup']
+}
+
+const categoryLabels = {
+    Hairstyle: 'Стрижки',
+    Beard: 'Борода',
+    Lineup: 'Контуры',
+    Shave: 'Бритьё'
+}
+
+function normalizeImagePath(imagePath) {
+    return String(imagePath || '').replace(/\\/g, '/').replace(/^\//, '')
+}
 
 export default {
-   components: {
-       Header,
-       Footer
+    components: {
+        Header,
+        Footer,
+        InnerPageHero
     },
     data() {
-        
-      return {
-        WhatWeCanDo : [],
-        services : [],
-        gallery : [],
-        masters : []
-
-   }
-  },
-   mounted: function(){
-        Vue.axios.get(API_BASE_URL + "/WhatWeCanDo").then((response) => {
-            this.WhatWeCanDo = response.data;
+        return {
+            gallery: [],
+            activeCategory: 'All',
+            currentPage: 1,
+            pageSize: 6,
+            filters: [
+                { value: 'All', label: 'Все' },
+                { value: 'Hairstyle', label: 'Стрижки' },
+                { value: 'Beard', label: 'Борода' },
+                { value: 'Lineup', label: 'Контуры' },
+                { value: 'Shave', label: 'Бритьё' }
+            ]
+        }
+    },
+    computed: {
+        galleryWithMetadata() {
+            return this.gallery.map((item) => {
+                const imagePath = normalizeImagePath(item.imgsrc)
+                return Object.assign({}, item, {
+                    categories: galleryCategoryMap[imagePath] || []
+                })
+            })
+        },
+        filteredGallery() {
+            if (this.activeCategory === 'All') {
+                return this.galleryWithMetadata
+            }
+            return this.galleryWithMetadata.filter((item) => item.categories.includes(this.activeCategory))
+        },
+        paginatedGallery() {
+            const start = (this.currentPage - 1) * this.pageSize
+            return this.filteredGallery.slice(start, start + this.pageSize)
+        },
+        totalPages() {
+            return Math.max(1, Math.ceil(this.filteredGallery.length / this.pageSize))
+        },
+        pageNumbers() {
+            const pages = []
+            for (let page = 1; page <= this.totalPages; page += 1) {
+                pages.push(page)
+            }
+            return pages
+        }
+    },
+    mounted() {
+        axios.get(API_BASE_URL + '/gallery').then((response) => {
+            this.gallery = response.data
         })
-    
-        Vue.axios.get(API_BASE_URL + "/services").then((response) => {
-            this.services = response.data;
-        })
-
-        Vue.axios.get(API_BASE_URL + "/gallery").then((response) => {
-            this.gallery = response.data;
-        })
-
-        Vue.axios.get(API_BASE_URL + "/masters").then((response) => {
-            this.masters = response.data;
-        })
-
-  },
-    beforeRouteEnter (to, from, next) {
-        next(() => {
-            utils.updatePageWithJQuery()
-        })
+    },
+    methods: {
+        setCategory(category) {
+            this.activeCategory = category
+            this.currentPage = 1
+        },
+        goToPage(page) {
+            if (page < 1 || page > this.totalPages || page === this.currentPage) {
+                return
+            }
+            this.currentPage = page
+            this.$nextTick(() => {
+                const top = this.$refs.galleryGrid.getBoundingClientRect().top + window.pageYOffset - 105
+                window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
+            })
+        },
+        categoryLabel(category) {
+            return categoryLabels[category] || category
+        },
+        categoryText(categories) {
+            return categories.map(this.categoryLabel).join(', ')
+        }
     }
 }
 </script>
 
 <style>
+.gallery-page {
+    padding: 85px 0 90px;
+}
 
+.gallery-page__filters {
+    margin-bottom: 45px;
+    text-align: center;
+}
+
+.gallery-page__filters button {
+    padding: 0 0 8px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    color: #333333;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.gallery-page__filters button:hover,
+.gallery-page__filters button:focus,
+.gallery-page__filters button.active-filter {
+    border-bottom-color: #bb8c4b;
+    outline: 0;
+    color: #bb8c4b;
+}
+
+.gallery-page__grid {
+    min-height: 300px;
+}
+
+.gallery-page__category span {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gallery-page__category span + span:before {
+    content: ' • ';
+    color: #bb8c4b;
+}
+
+.gallery-page__pagination > li > button {
+    min-width: 37px;
+    height: 37px;
+    padding: 0 12px;
+    border: 1px solid #e5e5e5;
+    background: transparent;
+    color: #333333;
+    font-size: 14px;
+    line-height: 35px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.gallery-page__pagination > li.active > button,
+.gallery-page__pagination > li > button:hover:not(:disabled) {
+    border-color: #333333;
+    background: #333333;
+    color: #ffffff;
+}
+
+.gallery-page__pagination > li.disabled > button {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+@media only screen and (max-width: 767px) {
+    .gallery-page {
+        padding: 60px 0;
+    }
+
+    .gallery-page__filters {
+        margin-bottom: 32px;
+    }
+
+    .gallery-page__filters li {
+        margin-bottom: 12px;
+    }
+
+    .gallery-page__pagination > li {
+        margin-right: 5px;
+    }
+
+    .gallery-page__pagination > li > button {
+        padding: 0 8px;
+    }
+}
 </style>

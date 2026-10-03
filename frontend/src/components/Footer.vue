@@ -37,7 +37,7 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-6">
-            <span>&copy; 2019, Все права защищены.</span>
+            <span>&copy; 2026, Все права защищены.</span>
           </div>
         </div>
       </div>
