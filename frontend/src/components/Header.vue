@@ -11,12 +11,6 @@
                             </ul>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6 top--info text-right text-center-xs">
-                            <span class="top--login">
-                                <i class="lnr lnr-exit"></i>
-                                <router-link to="/Authorization">Вход</router-link>
-                                <span class="top--separator"> / </span>
-                                <span class="top--register">Регистрация</span>
-                            </span>
                             <span class="top--social" aria-label="Социальные сети">
                                 <a class="facebook" href="https://www.facebook.com/" target="_blank"
                                     rel="noopener noreferrer" aria-label="Facebook">
@@ -61,7 +55,7 @@
                     <div class="module module-cart pull-left booking-module">
                         <div class="module-icon">
                             <a class="btn btn--white btn--bordered btn--rounded booking-nav-button"
-                                href="/#/#booking" @click.prevent="goToBooking">Онлайн-запись</a>
+                                href="/#/">Онлайн-запись</a>
                         </div>
                     </div>
                 </div>
@@ -82,11 +76,22 @@ export default {
     mounted() {
         this.updateScrolledState()
         window.addEventListener('scroll', this.updateScrolledState, { passive: true })
+        document.addEventListener('click', this.handleBookingButtonClick, true)
     },
     beforeDestroy() {
         window.removeEventListener('scroll', this.updateScrolledState)
+        document.removeEventListener('click', this.handleBookingButtonClick, true)
     },
     methods: {
+        handleBookingButtonClick(event) {
+            const button = event.target.closest && event.target.closest('.booking-nav-button')
+            if (!button || !this.$el.contains(button)) {
+                return
+            }
+            event.preventDefault()
+            event.stopPropagation()
+            this.goToBooking()
+        },
         updateScrolledState() {
             this.isScrolled = window.pageYOffset > 50
         },
@@ -103,22 +108,18 @@ export default {
         },
         goToBooking() {
             this.closeMobileMenu()
-            const destination = { path: '/', hash: '#booking' }
-            const scrollWhenStable = () => this.$nextTick(() => scrollToBookingWhenReady())
-            const scrollNow = () => this.$nextTick(() => {
-                window.requestAnimationFrame(() => scrollToBooking())
-            })
+            const scrollWhenStable = () => window.requestAnimationFrame(() => scrollToBookingWhenReady())
 
             if (this.$route.path === '/') {
-                if (this.$route.hash === '#booking') {
-                    scrollNow()
-                } else {
-                    this.$router.push(destination).then(scrollNow).catch(scrollNow)
+                if (this.$route.hash) {
+                    this.$router.replace({ path: '/' }).then(scrollWhenStable).catch(scrollWhenStable)
+                    return
                 }
+                scrollWhenStable()
                 return
             }
 
-            this.$router.push(destination).then(scrollWhenStable).catch(scrollWhenStable)
+            this.$router.push({ path: '/' }).then(scrollWhenStable).catch(scrollWhenStable)
         }
     }
 }
@@ -155,17 +156,37 @@ body {
     color: #bb8c4b;
 }
 
-.public-navbar .booking-nav-button {
+.public-navbar .booking-nav-button,
+.public-navbar .booking-nav-button:visited {
+    border-color: #ffffff !important;
+    background: transparent !important;
+    color: #ffffff !important;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .public-navbar.is-scrolled .booking-nav-button,
-.public-navbar.affix .booking-nav-button {
-    border-color: #bb8c4b;
-    color: #ffffff;
+.public-navbar.is-scrolled .booking-nav-button:visited,
+.public-navbar.affix .booking-nav-button,
+.public-navbar.affix .booking-nav-button:visited {
+    border-color: #bb8c4b !important;
+    color: #ffffff !important;
 }
 
-.public-header .top--register,
+.public-navbar .booking-nav-button:hover,
+.public-navbar .booking-nav-button:focus,
+.public-navbar .booking-nav-button:active {
+    border-color: #bb8c4b !important;
+    background: #bb8c4b !important;
+    color: #ffffff !important;
+    outline: 0;
+    text-decoration: none;
+}
+
+.public-navbar .booking-nav-button:focus-visible {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.75), 0 0 0 6px rgba(187, 140, 75, 0.75) !important;
+}
+
 .public-header .top--social a {
     color: #ffffff;
 }

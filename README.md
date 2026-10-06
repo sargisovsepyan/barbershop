@@ -1,98 +1,87 @@
-# Barbershop
+# Hairy Barbershop
 
-An educational full-stack web application for a barbershop website, with a Vue 2 frontend and an Express/MongoDB backend.
+A recovered full-stack barbershop site with a Vue 2 public frontend, an Express API, and MongoDB/Mongoose persistence. Its original dark, charcoal, and gold Hairy design is intentionally retained.
 
-## About
+## Public Features
 
-This project was created during an earlier stage of my software-development studies. It is preserved as part of my development journey and has received a conservative repository cleanup so it remains understandable and safe to review.
+- Home, About Us, Our Staff, and Gallery pages
+- Three-slide hero and three-quote testimonial carousels
+- Seven recovered services, six recovered barbers, and nine recovered gallery images
+- Account-free public appointment booking
+- Backend-authoritative schedules and availability
+- Duration-aware conflict detection, atomic overlap protection, and request idempotency
+- Russian booking, confirmation, validation, and failure states
 
-The application is a learning project, not a production-ready booking system. Its original Vue 2 and Express architecture and visual design have intentionally been retained.
+The public booking flow does not require login, registration, or a client profile. Legacy administration code remains outside the scope of the public booking feature.
 
-## Features
+## Local Development
 
-- Barbershop landing, about, staff, and gallery pages
-- Services, staff, gallery, and capability content loaded from a REST API
-- Appointment availability lookup and booking updates
-- Environment-configured email notifications for bookings
-- Environment-configured admin sign-in and an admin booking list
-- CRUD-style Express routes backed by MongoDB and Mongoose
+The root launcher starts the recovered MongoDB compatibility instance, waits for it, then starts the backend and frontend:
 
-## Tech Stack
-
-### Frontend
-
-- Vue.js 2
-- Vue Router
-- Vuex
-- Axios
-- Webpack 4
-- JavaScript, HTML, CSS, and legacy jQuery-based theme assets
-
-### Backend
-
-- Node.js
-- Express
-- MongoDB with Mongoose
-- Nodemailer
-
-## Project Structure
-
-```text
-barbershop/
-├── frontend/       # Vue 2 client application and static assets
-├── backend/        # Express API, Mongoose models, and mail integration
-├── .env.example    # Safe local configuration template
-├── .gitignore
-└── README.md
+```bash
+npm start
 ```
 
-Local dependencies, build output, logs, environment files, and MongoDB database files are intentionally excluded from Git.
+Use the companion commands to inspect or stop only this project-managed stack:
 
-## Running Locally
+```bash
+npm run status
+npm run stop
+```
 
-### Prerequisites
+The default local addresses are:
 
-- Node.js and npm (an older LTS release is the most compatible choice for this legacy Webpack 4 project)
-- A local or remote MongoDB instance compatible with the legacy Mongoose 4 dependency
+- Frontend: `http://localhost:8080`
+- Backend: `http://localhost:3000`
+- Recovered MongoDB compatibility instance: `127.0.0.1:27018`
 
-The repository does not include a local MongoDB database or seed data.
+Local dependencies, build output, runtime state, logs, environment files, and database files are excluded from Git.
 
-### 1. Configure the environment
+## Booking Design
 
-Copy `.env.example` to `.env` at the repository root and replace the placeholders needed for your local setup. Never commit `.env`.
+Booking uses the recovered master and service records without duplicating them. A small deterministic booking metadata layer supplies service durations, weekly schedules, days off, and service eligibility.
 
-`MONGODB_URI`, `ADMIN_USER`, and `ADMIN_PASS` are needed for the database-backed application and admin screen. Mail delivery is optional; when `MAIL_USER` or `MAIL_PASS` is absent, bookings continue without an email notification.
+| Service | Duration |
+| --- | ---: |
+| МУЖСКАЯ СТРИЖКА | 60 minutes |
+| СТРИЖКА + БОРОДА | 90 minutes |
+| КОРЕКЦИЯ БОРОДЫ | 30 minutes |
+| КОРОЛЕВСКОЕ БРИТЬЕ | 60 minutes |
+| ДЕТСКАЯ СТРИЖКА | 60 minutes |
+| УДАЛЕНИЕ ВОЛОС ГОРЯЧИМ ВОСКОМ | 30 minutes |
+| КАМУФЛЯЖ СЕДИНЫ | 60 minutes |
 
-### 2. Install and start the backend
+- Slot interval: 30 minutes
+- Booking horizon: today through 30 days ahead
+- Business timezone: configurable IANA name, default `Asia/Yerevan`
+- Base hours: Monday–Friday 09:00–17:00, Saturday 09:00–15:00, Sunday 09:00–13:00
+- Each barber has one deterministic day off and an explicit eligible-service list
+
+The API revalidates the selected service, barber, date, shift, eligibility, duration, and time during creation. Every occupied minute is represented by a lock key in the appointment document. A unique multikey index on barber plus lock key makes overlapping inserts for the same barber mutually exclusive on standalone MongoDB, without relying on transactions. A separately unique SHA-256 hash of the client UUID idempotency key prevents repeat submissions.
+
+## Booking API
+
+- `GET /api/booking/options` returns timezone, horizon, services, durations, barbers, eligibility, and weekly schedules.
+- `GET /api/booking/availability?serviceId=<id>&masterId=<id>&date=YYYY-MM-DD` returns the server-authoritative slots for one selection.
+- `POST /api/booking/appointments` creates a confirmed appointment. It requires JSON booking fields and a UUID v4 `Idempotency-Key` header.
+
+The booking routes use a configurable local CORS allowlist, a 16 KiB request-body limit, basic per-IP rate limiting, bounded client fields, normalized phone storage, and sanitized error responses.
+
+## Development Checks
+
+Run the booking API and concurrency suite while the root MongoDB stack is available:
 
 ```bash
 cd backend
-npm install
-npm start
+npm test
 ```
 
-The API listens on `http://localhost:3000` by default.
-
-### 3. Install and start the frontend
-
-In another terminal:
-
-```bash
-cd frontend
-npm install
-npm start
-```
-
-The frontend development server listens on `http://localhost:8080` by default. Its API URL defaults to `http://localhost:3000`; a deployment may set `window.BARBERSHOP_API_URL` before the generated bundle loads.
-
-### Production bundle
+Build the public frontend production bundle:
 
 ```bash
 cd frontend
 npm run build
 ```
-
-Webpack writes the generated bundle to `frontend/dist/`, which is not tracked.
 
 ## Environment Variables
 
@@ -100,18 +89,19 @@ Webpack writes the generated bundle to `frontend/dist/`, which is not tracked.
 | --- | --- |
 | `PORT` | Express server port; defaults to `3000` |
 | `MONGODB_URI` | MongoDB connection URI |
-| `MAIL_USER` | SMTP account username |
-| `MAIL_PASS` | SMTP account password or app password |
-| `MAIL_FROM` | Optional sender address; defaults to `MAIL_USER` |
-| `MAIL_TO` | Optional notification recipient; defaults to `MAIL_USER` |
-| `ADMIN_USER` | Local admin username |
-| `ADMIN_PASS` | Local admin password |
+| `BUSINESS_TIMEZONE` | IANA business timezone; defaults to `Asia/Yerevan` |
+| `CORS_ORIGINS` | Comma-separated allowed frontend origins |
+| `BOOKING_RATE_LIMIT` | Requests allowed per IP in a five-minute booking window |
+| `MAIL_USER`, `MAIL_PASS`, `MAIL_FROM`, `MAIL_TO` | Optional legacy mail settings |
+| `ADMIN_USER`, `ADMIN_PASS` | Optional legacy administration credentials |
 
-The lightweight admin token store is in memory and resets whenever the backend restarts. It is suitable only for this local educational application.
+Never commit `.env` or real credentials.
 
-## Historical Project Note
+## Technology
 
-This repository intentionally remains recognizably an older educational project. Dependencies have not been broadly upgraded because major framework migrations would change the character and risk breaking the application. A production system would need current dependencies, persistent authentication, input validation, tests, and a deployment-specific security review.
+- Vue 2, Vue Router, Vuex, Axios, and the retained jQuery-based theme assets
+- Webpack 5 development and production tooling
+- Node.js, Express, Mongoose 4, and the recovered standalone MongoDB 4.0 compatibility runtime
 
 ## Author
 

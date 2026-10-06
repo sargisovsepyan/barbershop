@@ -11,7 +11,6 @@ import Gallery from './components/Gallery.vue'
 import Authorization from './components/Authorization.vue'
 import AdminPanel from './components/AdminPanel.vue'
 import store from './store.js'
-import { scrollToBookingWhenReady } from './navigation'
 
 Vue.use(VueRouter)
 
@@ -29,9 +28,6 @@ const router = new VueRouter({
    scrollBehavior(to, from, savedPosition) {
       if (savedPosition) {
          return savedPosition
-      }
-      if (to.hash === '#booking') {
-         return false
       }
       return { x: 0, y: 0 }
    }
@@ -54,11 +50,9 @@ router.beforeEach((to, from, next) => {
    }
 })
 
-router.afterEach((to) => {
-   if (to.hash === '#booking') {
-      Vue.nextTick(() => window.requestAnimationFrame(() => scrollToBookingWhenReady()))
-   }
-})
+if ('scrollRestoration' in window.history) {
+   window.history.scrollRestoration = 'manual'
+}
 
 new Vue({
    render: h => h(App),
