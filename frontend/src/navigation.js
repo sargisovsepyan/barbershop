@@ -1,6 +1,14 @@
-const BOOKING_OFFSET = 96
 const BOOKING_SCROLL_DURATION = 650
 let bookingScrollFrame = null
+
+function visibleHeaderHeight() {
+    const navbar = document.getElementById('primary-menu')
+    if (!navbar) {
+        return 0
+    }
+    const rect = navbar.getBoundingClientRect()
+    return Math.max(0, Math.round(rect.height))
+}
 
 function animateScrollTo(top) {
     if (bookingScrollFrame !== null) {
@@ -35,7 +43,7 @@ export function scrollToBooking(behavior = 'smooth') {
         return false
     }
 
-    const top = booking.getBoundingClientRect().top + window.pageYOffset - BOOKING_OFFSET
+    const top = booking.getBoundingClientRect().top + window.pageYOffset - visibleHeaderHeight()
     const target = Math.max(0, top)
     if (behavior === 'smooth') {
         animateScrollTo(target)

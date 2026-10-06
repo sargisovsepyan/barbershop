@@ -368,89 +368,139 @@
             style="background-image: url('assets/images/testimonial/bg-1.jpg')">
             <div class="container">
                 <div class="row clearfix">
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
-                        <div class="heading heading-2 mb-80 text--center">
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+                        <div class="heading heading-2 mb-50 text--center">
+                            <p class="booking-kicker">Без регистрации и звонков</p>
                             <h2 class="heading--title text-white">Онлайн-запись</h2>
-                            <!-- <p class="heading--desc text-white">Барбершоп Hairy</p> -->
+                            <p class="heading--desc text-white">Выберите услугу, мастера и свободное время — запись подтвердится сразу.</p>
                             <div class="divider--line"></div>
                         </div>
                     </div>
-                    <!-- .col-md-6 end -->
                 </div>
-                <!-- .row end -->
+
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
-                        <div class="booking-form">
-                         
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <input type="text" class="form-control" name="contact-name" id="name"
-                                            placeholder="Ваше имя" v-model = "nameOfC" style="font-weight: bold;" > 
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <input type="text" class="form-control" name="contact-phone" id="phone" style="font-weight: bold;"
-                                            placeholder="Телефон" v-model = "phoneOfC">
-                                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
+                        <div class="booking-form booking-widget">
+                            <div v-if="bookingOptionsLoading" class="booking-state" role="status">
+                                Загружаем расписание…
+                            </div>
+                            <div v-else-if="bookingOptionsError" class="booking-alert booking-alert--error" role="alert">
+                                <p>{{ bookingOptionsError }}</p>
+                                <button type="button" class="booking-link-button" @click="loadBookingOptions">Повторить</button>
+                            </div>
 
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                            <div v-else-if="bookingConfirmation" class="booking-confirmation" aria-live="polite">
+                                <span class="booking-confirmation__icon" aria-hidden="true">✓</span>
+                                <p class="booking-kicker booking-kicker--dark">Запись подтверждена</p>
+                                <h3>{{ bookingConfirmation.clientName }}, ждём вас!</h3>
+                                <dl class="booking-summary">
+                                    <div><dt>Услуга</dt><dd>{{ bookingConfirmation.service.name }}</dd></div>
+                                    <div><dt>Мастер</dt><dd>{{ bookingConfirmation.master.name }}</dd></div>
+                                    <div><dt>Дата</dt><dd>{{ formatBookingDate(bookingConfirmation.date) }}</dd></div>
+                                    <div><dt>Время</dt><dd>{{ bookingConfirmation.startTime }}–{{ bookingConfirmation.endTime }}</dd></div>
+                                </dl>
+                                <button type="button" class="btn btn--secondary btn--rounded" @click="resetBooking">
+                                    Новая запись
+                                </button>
+                            </div>
+
+                            <form v-else class="booking-flow" novalidate @submit.prevent="bookBtn">
+                                <div class="booking-grid">
+                                    <div class="booking-field">
+                                        <label for="booking-service"><span>1</span> Услуга</label>
                                         <div class="form-select">
-                                            <i class="fa fa-angle-down"></i>
-                                            <select class="form-control" name="services" id="services" v-model = "serviceOfC" style="font-weight: bold;">
-                                                <option value="">Услуга</option>
-                                                <option v-for="item in services" :value="item.name" :key="item.id">{{item.name}}</option>
-                                                
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <div class="form-select">
-                                            <i class="fa fa-angle-down"></i>
-                                            <select class="form-control" name="date" id="date" v-model = "dateOfC"  @change="selectDate()" style="font-weight: bold;">
-                                                <option value="">Дата</option>
-                                                <option>{{todayDate.getDate()}}. {{todayDate.getMonth()+1}}. {{todayDate.getFullYear()}}</option>
-                                                <option >{{todayDate.getDate()+1}}. {{todayDate.getMonth()+1}}. {{todayDate.getFullYear()}}</option>
-                                                <option >{{todayDate.getDate()+2}}. {{todayDate.getMonth()+1}}. {{todayDate.getFullYear()}}</option>
-                                                <option >{{todayDate.getDate()+3}}. {{todayDate.getMonth()+1}}. {{todayDate.getFullYear()}}</option>
-                                                <option >{{todayDate.getDate()+4}}. {{todayDate.getMonth()+1}}. {{todayDate.getFullYear()}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
-                
-                                    
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <div class="form-select">
-                                            <i class="fa fa-angle-down"></i>
-                                            <select class="form-control" name="date" id="date" v-model = "timeOfC" style="font-weight: bold;" >
-                                                <option value="" >Время</option>
-                                                <option v-for="timeFromServer in times" v-bind:key="timeFromServer.time" :value="timeFromServer">{{timeFromServer.time}}</option>
-                                               
+                                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                            <select id="booking-service" v-model="bookingForm.serviceId" class="form-control"
+                                                @change="onBookingServiceChange">
+                                                <option value="">Выберите услугу</option>
+                                                <option v-for="service in bookingServices" :key="service.id" :value="service.id">
+                                                    {{ service.name }} · {{ service.durationMinutes }} мин · {{ service.price }}
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
 
-                                        
-
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <textarea class="form-control" name="contact-message" id="message" rows="3"
-                                            placeholder="Комментарий" v-model = "noteOfC" style="font-weight: bold;"></textarea>
+                                    <div class="booking-field">
+                                        <label for="booking-master"><span>2</span> Мастер</label>
+                                        <div class="form-select">
+                                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                            <select id="booking-master" v-model="bookingForm.masterId" class="form-control"
+                                                :disabled="!bookingForm.serviceId" @change="onBookingMasterChange">
+                                                <option value="">Выберите мастера</option>
+                                                <option v-for="master in eligibleBookingMasters" :key="master.id" :value="master.id">
+                                                    {{ master.name }}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <input type="button" value="ОФОРМИТЬ ВИЗИТ" 
-                                            class="btn btn--secondary btn--rounded btn--block" v-on:click="bookBtn">
+
+                                    <div class="booking-field">
+                                        <label for="booking-date"><span>3</span> Дата</label>
+                                        <input id="booking-date" v-model="bookingForm.date" type="date" class="form-control"
+                                            :min="bookingOptions.today" :max="bookingOptions.maxDate"
+                                            :disabled="!bookingForm.masterId" @change="onBookingDateChange">
+                                        <small>Запись открыта на 30 дней, часовой пояс — Ереван.</small>
+                                    </div>
+
+                                    <div class="booking-field booking-field--wide">
+                                        <label><span>4</span> Свободное время</label>
+                                        <div v-if="availabilityLoading" class="booking-state booking-state--compact" role="status">
+                                            Проверяем расписание…
+                                        </div>
+                                        <div v-else-if="!bookingForm.date" class="booking-placeholder">Сначала выберите дату.</div>
+                                        <div v-else-if="availabilityError" class="booking-alert booking-alert--error" role="alert">
+                                            {{ availabilityError }}
+                                        </div>
+                                        <div v-else-if="availableSlots.length === 0" class="booking-placeholder">
+                                            {{ availabilityEmptyText }}
+                                        </div>
+                                        <div v-else class="booking-slots" role="radiogroup" aria-label="Доступное время">
+                                            <button v-for="slot in availableSlots" :key="slot.start" type="button"
+                                                class="booking-slot" :class="{ 'is-selected': bookingForm.startTime === slot.start }"
+                                                :aria-pressed="bookingForm.startTime === slot.start"
+                                                @click="selectBookingTime(slot.start)">
+                                                {{ slot.start }}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="booking-field">
+                                        <label for="booking-name"><span>5</span> Ваше имя</label>
+                                        <input id="booking-name" v-model.trim="bookingForm.name" type="text" class="form-control"
+                                            autocomplete="name" maxlength="80" placeholder="Как к вам обращаться"
+                                            @input="invalidateBookingKey">
+                                    </div>
+
+                                    <div class="booking-field">
+                                        <label for="booking-phone"><span>6</span> Телефон</label>
+                                        <input id="booking-phone" v-model.trim="bookingForm.phone" type="tel" class="form-control"
+                                            autocomplete="tel" maxlength="30" placeholder="+374 00 000 000"
+                                            @input="invalidateBookingKey">
+                                    </div>
+
+                                    <div class="booking-field booking-field--wide">
+                                        <label for="booking-comment"><span>7</span> Комментарий <em>необязательно</em></label>
+                                        <textarea id="booking-comment" v-model="bookingForm.comment" class="form-control"
+                                            rows="3" maxlength="500" placeholder="Пожелания к визиту"
+                                            @input="invalidateBookingKey"></textarea>
+                                        <small>{{ bookingForm.comment.length }}/500</small>
                                     </div>
                                 </div>
-                                <!-- .row end -->
-                       
-                            <!-- form end -->
+
+                                <div v-if="bookingSubmitError" class="booking-alert booking-alert--error" role="alert">
+                                    {{ bookingSubmitError }}
+                                </div>
+
+                                <button type="submit" class="btn btn--secondary btn--rounded btn--block booking-submit"
+                                    :disabled="!canSubmitBooking || bookingSubmitting">
+                                    {{ bookingSubmitting ? 'Подтверждаем…' : 'Подтвердить запись' }}
+                                </button>
+                                <p class="booking-privacy">Отправляя форму, вы соглашаетесь на обработку данных для оформления визита.</p>
+                            </form>
                         </div>
-                        <!-- .booking-form end -->
                     </div>
-                    <!-- .col-md-8 end -->
                 </div>
-                <!-- .row end -->
             </div>
-            <!-- .container end -->
         </section>
         <!-- #booking end -->
 
@@ -472,14 +522,11 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { API_BASE_URL } from '../api'
-import VueSweetalert2 from 'vue-sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
 
 import Header from './Header.vue'
 import Footer from './Footer.vue'
 
 Vue.use(VueAxios, axios)
-Vue.use(VueSweetalert2);
 
 export default {
     components: {
@@ -492,16 +539,65 @@ export default {
         services : [],
         gallery : [],
         masters : [],
-        times: [],
-        nameOfC : "",
-        phoneOfC : "",
-        serviceOfC : "",
-        dateOfC : "",
-        timeOfC : "",
-        noteOfC : "",
-        todayDate : new Date(),
+        bookingOptions: {
+          services: [],
+          masters: [],
+          today: '',
+          maxDate: ''
+        },
+        bookingOptionsLoading: true,
+        bookingOptionsError: '',
+        bookingForm: {
+          serviceId: '',
+          masterId: '',
+          date: '',
+          startTime: '',
+          name: '',
+          phone: '',
+          comment: ''
+        },
+        availableSlots: [],
+        availabilityReason: '',
+        availabilityLoading: false,
+        availabilityError: '',
+        availabilityRequest: 0,
+        bookingSubmitting: false,
+        bookingSubmitError: '',
+        bookingIdempotencyKey: '',
+        bookingConfirmation: null,
         
    }
+  },
+  computed: {
+      bookingServices: function() {
+        return this.bookingOptions.services || []
+      },
+      eligibleBookingMasters: function() {
+        const serviceId = this.bookingForm.serviceId
+        if (!serviceId) {
+          return []
+        }
+        return (this.bookingOptions.masters || []).filter(function(master) {
+          return master.eligibleServiceIds.indexOf(serviceId) !== -1
+        })
+      },
+      canSubmitBooking: function() {
+        const selectedTimeExists = this.availableSlots.some((slot) => slot.start === this.bookingForm.startTime)
+        return Boolean(
+          this.bookingForm.serviceId &&
+          this.bookingForm.masterId &&
+          this.bookingForm.date &&
+          selectedTimeExists &&
+          this.bookingForm.name.trim().length >= 2 &&
+          this.bookingForm.phone.trim().length >= 7
+        )
+      },
+      availabilityEmptyText: function() {
+        if (this.availabilityReason === 'MASTER_NOT_WORKING') {
+          return 'У мастера выходной. Выберите другую дату.'
+        }
+        return 'На эту дату свободных слотов нет. Попробуйте другой день.'
+      }
   },
   methods: {
       initializeCarousels: function() {
@@ -512,36 +608,158 @@ export default {
       localizedPosition: function(position) {
         return position === 'Barber' ? 'Барбер' : position
       },
-      selectDate: function() {
-        Vue.axios.get(API_BASE_URL + "/book/" + encodeURIComponent(this.dateOfC)).then((response) => {
-            this.times = response.data
-          
+      loadBookingOptions: function() {
+        this.bookingOptionsLoading = true
+        this.bookingOptionsError = ''
+        axios.get(API_BASE_URL + '/api/booking/options').then((response) => {
+          this.bookingOptions = response.data.data
+        }).catch(() => {
+          this.bookingOptionsError = 'Не удалось загрузить расписание. Проверьте соединение и попробуйте снова.'
+        }).then(() => {
+          this.bookingOptionsLoading = false
         })
       },
-      bookBtn: function(){
-    if( (this.nameOfC == "") || (this.phoneOfC == "") || (this.serviceOfC == "") || (this.dateOfC == "") || (this.timeOfC =="")){
-            Vue.swal("Введите все поля!", "", "error");
-    }else{
-           //
-          
-            Vue.axios.put(API_BASE_URL + "/book/" + this.timeOfC._id, {
-               name : this.nameOfC,
-               phone : this.phoneOfC,
-               service : this.serviceOfC,
-               dateOfService : this.dateOfC,
-               time: this.timeOfC.time,
-               note : this.noteOfC,
-               booked: true
-            }).then(() => {
-              Vue.swal("Вы записаны", "Ждем вас!", "success");
-            }).catch(() => {
-              Vue.swal("Ошибка", "Не удалось сохранить запись.", "error");
-            })
-            
+      invalidateBookingKey: function() {
+        this.bookingIdempotencyKey = ''
+        this.bookingSubmitError = ''
+      },
+      clearAvailability: function() {
+        this.availabilityRequest += 1
+        this.availableSlots = []
+        this.availabilityReason = ''
+        this.availabilityError = ''
+        this.availabilityLoading = false
+        this.bookingForm.startTime = ''
+      },
+      onBookingServiceChange: function() {
+        this.bookingForm.masterId = ''
+        this.bookingForm.date = ''
+        this.clearAvailability()
+        this.invalidateBookingKey()
+      },
+      onBookingMasterChange: function() {
+        this.bookingForm.date = ''
+        this.clearAvailability()
+        this.invalidateBookingKey()
+      },
+      onBookingDateChange: function() {
+        this.clearAvailability()
+        this.invalidateBookingKey()
+        if (this.bookingForm.date) {
+          this.loadAvailability()
         }
-      
-      
-      
+      },
+      loadAvailability: function() {
+        if (!this.bookingForm.serviceId || !this.bookingForm.masterId || !this.bookingForm.date) {
+          return Promise.resolve()
+        }
+        const requestNumber = this.availabilityRequest + 1
+        this.availabilityRequest = requestNumber
+        this.availabilityLoading = true
+        this.availabilityError = ''
+        this.availabilityReason = ''
+        this.availableSlots = []
+
+        return axios.get(API_BASE_URL + '/api/booking/availability', {
+          params: {
+            serviceId: this.bookingForm.serviceId,
+            masterId: this.bookingForm.masterId,
+            date: this.bookingForm.date
+          }
+        }).then((response) => {
+          if (requestNumber !== this.availabilityRequest) {
+            return
+          }
+          this.availableSlots = response.data.data.slots
+          this.availabilityReason = response.data.data.reason || ''
+        }).catch((error) => {
+          if (requestNumber !== this.availabilityRequest) {
+            return
+          }
+          this.availabilityError = error.response && error.response.data && error.response.data.error
+            ? error.response.data.error.message
+            : 'Не удалось проверить расписание. Попробуйте ещё раз.'
+        }).then(() => {
+          if (requestNumber === this.availabilityRequest) {
+            this.availabilityLoading = false
+          }
+        })
+      },
+      selectBookingTime: function(startTime) {
+        this.bookingForm.startTime = startTime
+        this.invalidateBookingKey()
+      },
+      createIdempotencyKey: function() {
+        const bytes = new Uint8Array(16)
+        window.crypto.getRandomValues(bytes)
+        bytes[6] = (bytes[6] & 0x0f) | 0x40
+        bytes[8] = (bytes[8] & 0x3f) | 0x80
+        const hex = Array.from(bytes).map((value) => value.toString(16).padStart(2, '0')).join('')
+        return [hex.slice(0, 8), hex.slice(8, 12), hex.slice(12, 16), hex.slice(16, 20), hex.slice(20)].join('-')
+      },
+      bookBtn: function() {
+        if (!this.canSubmitBooking || this.bookingSubmitting) {
+          this.bookingSubmitError = 'Заполните обязательные поля и выберите свободное время.'
+          return
+        }
+        if (!this.bookingIdempotencyKey) {
+          this.bookingIdempotencyKey = this.createIdempotencyKey()
+        }
+        this.bookingSubmitting = true
+        this.bookingSubmitError = ''
+
+        axios.post(API_BASE_URL + '/api/booking/appointments', {
+          serviceId: this.bookingForm.serviceId,
+          masterId: this.bookingForm.masterId,
+          date: this.bookingForm.date,
+          startTime: this.bookingForm.startTime,
+          name: this.bookingForm.name,
+          phone: this.bookingForm.phone,
+          comment: this.bookingForm.comment
+        }, {
+          headers: { 'Idempotency-Key': this.bookingIdempotencyKey }
+        }).then((response) => {
+          this.bookingConfirmation = response.data.data.appointment
+          this.bookingIdempotencyKey = ''
+        }).catch((error) => {
+          const serverError = error.response && error.response.data && error.response.data.error
+          if (!error.response) {
+            this.bookingSubmitError = 'Сервер записи недоступен. Проверьте соединение и повторите отправку.'
+          } else if (serverError && serverError.code === 'SLOT_TAKEN') {
+            this.bookingSubmitError = 'Это время только что заняли. Мы обновили свободные слоты.'
+            this.bookingIdempotencyKey = ''
+            this.bookingForm.startTime = ''
+            this.loadAvailability()
+          } else if (serverError) {
+            this.bookingSubmitError = serverError.message
+          } else {
+            this.bookingSubmitError = 'Не удалось оформить запись. Попробуйте ещё раз.'
+          }
+        }).then(() => {
+          this.bookingSubmitting = false
+        })
+      },
+      resetBooking: function() {
+        this.bookingForm = {
+          serviceId: '',
+          masterId: '',
+          date: '',
+          startTime: '',
+          name: '',
+          phone: '',
+          comment: ''
+        }
+        this.bookingConfirmation = null
+        this.bookingSubmitError = ''
+        this.bookingIdempotencyKey = ''
+        this.clearAvailability()
+      },
+      formatBookingDate: function(value) {
+        if (!value) {
+          return ''
+        }
+        const parts = value.split('-')
+        return parts[2] + '.' + parts[1] + '.' + parts[0]
       }
   },
    mounted: function(){
@@ -563,6 +781,8 @@ export default {
             this.masters = response.data;
         })
 
+        this.loadBookingOptions()
+
     },
     beforeDestroy: function() {
         if (typeof window.destroyLegacyCarousels === 'function') {
@@ -572,4 +792,256 @@ export default {
 }
 </script>
 <style>
+.booking-kicker {
+  margin: 0 0 10px;
+  color: #d5ad72;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.booking-kicker--dark {
+  color: #9a6d30;
+}
+
+.booking-widget {
+  border-radius: 4px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.24);
+  color: #333333;
+  text-align: left;
+}
+
+.booking-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 28px;
+}
+
+.booking-field--wide {
+  grid-column: 1 / -1;
+}
+
+.booking-field label {
+  display: block;
+  margin: 0 0 9px;
+  color: #252525;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.35px;
+  text-transform: uppercase;
+}
+
+.booking-field label span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 23px;
+  height: 23px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: #bb8c4b;
+  color: #ffffff;
+  font-size: 12px;
+}
+
+.booking-field label em {
+  color: #999999;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.booking-field .form-control {
+  width: 100%;
+  margin: 0;
+  border: 1px solid #dddddd;
+  border-radius: 2px;
+  background: #ffffff;
+  color: #252525;
+  font-weight: 600;
+}
+
+.booking-field textarea.form-control {
+  height: auto;
+  min-height: 96px;
+  padding-top: 13px;
+  resize: vertical;
+}
+
+.booking-field .form-control:focus {
+  border-color: #bb8c4b;
+  box-shadow: 0 0 0 3px rgba(187, 140, 75, 0.16);
+  outline: 0;
+}
+
+.booking-field .form-control:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.booking-field small {
+  display: block;
+  margin-top: 7px;
+  color: #777777;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.booking-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.booking-slot {
+  min-width: 74px;
+  padding: 10px 13px;
+  border: 1px solid #d8d8d8;
+  border-radius: 22px;
+  background: #ffffff;
+  color: #333333;
+  font-weight: 700;
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.booking-slot:hover,
+.booking-slot:focus,
+.booking-slot.is-selected {
+  border-color: #bb8c4b;
+  background: #bb8c4b;
+  color: #ffffff;
+  outline: 0;
+}
+
+.booking-slot:focus-visible {
+  box-shadow: 0 0 0 3px rgba(187, 140, 75, 0.3);
+}
+
+.booking-placeholder,
+.booking-state--compact {
+  padding: 16px;
+  border: 1px dashed #d7d7d7;
+  border-radius: 3px;
+  background: #fafafa;
+  color: #777777;
+}
+
+.booking-state {
+  padding: 35px 15px;
+  text-align: center;
+}
+
+.booking-alert {
+  margin: 22px 0 0;
+  padding: 13px 15px;
+  border-radius: 3px;
+  line-height: 1.55;
+}
+
+.booking-alert p {
+  margin-bottom: 7px;
+}
+
+.booking-alert--error {
+  border: 1px solid #efb0aa;
+  background: #fff3f2;
+  color: #8c2f28;
+}
+
+.booking-link-button {
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font-weight: 700;
+}
+
+.booking-submit {
+  margin-top: 28px;
+}
+
+.booking-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.booking-privacy {
+  margin: 13px 0 0;
+  color: #777777;
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.booking-confirmation {
+  padding: 10px 0;
+  text-align: center;
+}
+
+.booking-confirmation__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  background: #2f7f51;
+  color: #ffffff;
+  font-size: 30px;
+}
+
+.booking-confirmation h3 {
+  margin-bottom: 25px;
+  color: #252525;
+}
+
+.booking-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  max-width: 640px;
+  margin: 0 auto 30px;
+  background: #e5e5e5;
+}
+
+.booking-summary div {
+  padding: 16px;
+  background: #fafafa;
+}
+
+.booking-summary dt {
+  margin-bottom: 5px;
+  color: #888888;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.booking-summary dd {
+  margin: 0;
+  color: #252525;
+  font-weight: 700;
+}
+
+@media only screen and (max-width: 767px) {
+  .booking-2 .booking-form.booking-widget {
+    padding: 30px 20px;
+  }
+
+  .booking-grid,
+  .booking-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-field--wide {
+    grid-column: auto;
+  }
+
+  .booking-slot {
+    flex: 1 0 70px;
+  }
+}
 </style>
