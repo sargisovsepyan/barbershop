@@ -20,6 +20,6 @@
     "dotenv": "^16.4.5",
     "express": "^4.17.1",
     "mongoose": "^4.13.19",
-    "nodemailer": "^6.4.8"
+    "nodemailer": "^10.1.4"
   }
 }
